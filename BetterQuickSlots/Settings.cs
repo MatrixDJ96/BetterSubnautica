@@ -1,4 +1,6 @@
-﻿using SMLHelper.V2.Json;
+﻿using BetterQuickSlots.MonoBehaviours;
+using SMLHelper.V2.Json;
+using SMLHelper.V2.Options;
 using SMLHelper.V2.Options.Attributes;
 using UnityEngine;
 
@@ -25,10 +27,26 @@ namespace BetterQuickSlots
         [Keybind("Slot 10 Toggle")]
         public KeyCode Slot10 { get; set; } = KeyCode.Alpha0;
 
-        [Slider("Text Font Size", 0, 100)]
+        [Slider("Text Font Size", 0, 100), OnChange(nameof(TextFontSizeEvent))]
         public int TextFontSize { get; set; } = 12;
 
-        [Slider("Text Offset Y", 0, 100)]
+        [Slider("Text Offset Y", 0, 100), OnChange(nameof(TextOffsetEvent))]
         public int TextOffsetY { get; set; } = 8;
+
+        private void TextFontSizeEvent(SliderChangedEventArgs e)
+        {
+            if (QuickSlotsController.Instance != null)
+            {
+                QuickSlotsController.Instance.ForceUpdate = true;
+            }
+        }
+
+        private void TextOffsetEvent(SliderChangedEventArgs e)
+        {
+            if (QuickSlotsController.Instance != null)
+            {
+                QuickSlotsController.Instance.ForceUpdate = true;
+            }
+        }
     }
 }

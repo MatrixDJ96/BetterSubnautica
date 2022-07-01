@@ -117,7 +117,9 @@
   <ItemGroup>
     <Compile Include="Core.cs" />
     <Compile Include="MonoBehaviours\QuickSlotsController.cs" />
+    <Compile Include="Patches\GameInputPatches.cs" />
     <Compile Include="Patches\QuickSlotsPatch.cs" />
+    <Compile Include="Patches\TooltipFactoryPatches.cs" />
     <Compile Include="Patches\uGUIQuickSlotsPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />

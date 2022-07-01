@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // Le informazioni generali relative a un assembly sono controllate dal seguente 
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
-[assembly: AssemblyTitle("Better HUD")]
-[assembly: AssemblyDescription("Better HUD")]
+[assembly: AssemblyTitle("Better Savegames")]
+[assembly: AssemblyDescription("Better Savegames")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MatrixDJ96")]
-[assembly: AssemblyProduct("Better HUD")]
+[assembly: AssemblyProduct("Better Savegames")]
 [assembly: AssemblyCopyright("Copyright © 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Se il progetto viene esposto a COM, il GUID seguente verrà utilizzato come ID della libreria dei tipi
-[assembly: Guid("c1494af7-d308-4a38-b197-a0827af618ce")]
+[assembly: Guid("973fe786-0517-4aa9-84f6-a56ebd27f58f")]
 
 // Le informazioni sulla versione di un assembly sono costituite dai seguenti quattro valori:
 //

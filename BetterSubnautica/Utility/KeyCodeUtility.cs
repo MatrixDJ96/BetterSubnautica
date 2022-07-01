@@ -5,7 +5,7 @@ namespace BetterSubnautica.Utility
 {
     public static class KeyCodeUtility
     {
-        public static string GetName(KeyCode keyCode)
+        public static string GetName(KeyCode keyCode, bool withColor = true)
         {
             StringBuilder sb = new();
 
@@ -17,14 +17,15 @@ namespace BetterSubnautica.Utility
                     if (text != null)
                     {
                         text = uGUI.GetDisplayTextForBinding(text);
-                        sb.AppendFormat("<color=#ADF8FFFF>{0}</color>", text);
+                        sb.Append(withColor ? $"<color=#ADF8FFFF>{text}</color>" : text);
                     }
                 }
             }
 
             if (sb.Length == 0)
             {
-                sb.AppendFormat("<color=#ADF8FFFF>{0}</color>", Language.main.Get("NoInputAssigned"));
+                var text = Language.main.Get("NoInputAssigned");
+                sb.Append(withColor ? $"<color=#ADF8FFFF>{text}</color>" : text);
             }
 
             return sb.ToString();

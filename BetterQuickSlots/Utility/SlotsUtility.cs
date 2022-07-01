@@ -22,31 +22,46 @@ namespace BetterQuickSlots.Utility
 
         private static string[] CreateSlotNames()
         {
-            foreach (var property in Core.Settings.GetType().GetProperties())
+            if (Core.Settings.GetType().GetProperty(nameof(Core.Settings.SlotCount)) is PropertyInfo property)
             {
-                if (property.Name == nameof(Core.Settings.SlotCount))
+                var attribute = property.GetCustomAttribute<SliderAttribute>();
+
+                if (attribute != null)
                 {
-                    var attribute = property.GetCustomAttribute<SliderAttribute>();
+                    var slotCount = (int)attribute.Max;
+                    var slotNames = new string[slotCount + 1];
 
-                    if (attribute != null)
+                    for (int i = 0; i < slotNames.Length; i++)
                     {
-                        var slotCount = (int)attribute.Max;
-                        var slotNames = new string[slotCount + 1];
+                        slotNames[i] = "QuickSlot" + i;
+                    }
 
-                        for (int i = 0; i < slotNames.Length; i++)
-                        {
-                            slotNames[i] = "QuickSlot" + i;
-                        }
+                    return slotNames;
+                }
+            }
 
-                        return slotNames;
+            return QuickSlots.slotNames;
+        }
+
+        public static string[] SlotNames = CreateSlotNames();
+
+        public static string GetInputSlotName(int slot, bool withColor = true)
+        {
+            if (slot < SlotNames.Length)
+            {
+                var bindingFlags = BindingFlags.Public | BindingFlags.Static;
+
+                foreach (var property in typeof(SlotsUtility).GetProperties(bindingFlags))
+                {
+                    if (property.Name.ToLower() == ("slot" + (slot + 1).ToString()))
+                    {
+                        return KeyCodeUtility.GetName((KeyCode)property.GetValue(null), withColor);
                     }
                 }
             }
 
-            return null;
+            return "";
         }
-
-        public static string[] SlotNames = CreateSlotNames();
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {

@@ -64,7 +64,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
                 {
                     sb.AppendLine(DebuggerUtility.GenerateString(item.Value.Text, item.Key, item.Value.Prefix));
                 }
-                if (Dictionary.Count > 0)
+                if (Dictionary.Count > 0 && List.Count > 0)
                 {
                     sb.AppendLine();
                 }
@@ -76,7 +76,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
             }
         }
 
-        public int MinimumFontSize { get; } = 9;
+        public int MinimumFontSize { get; } = 8;
 
         protected void Awake()
         {
@@ -92,7 +92,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
 
         protected void Update()
         {
-            Style.fontSize = (int)(MinimumFontSize * (Screen.currentResolution.width / 1920f) + MinimumFontSize * (Screen.currentResolution.height / 1080f));
+            Style.fontSize = (int)(MinimumFontSize * (Screen.width / 1920f) + MinimumFontSize * (Screen.height / 1080f));
 
             if (Input.GetKeyDown(KeyCode.Delete))
             {
@@ -122,6 +122,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
                 List.Add(message);
             }
         }
+
         public void RemoveMessage(string key)
         {
             if (Dictionary.ContainsKey(key))

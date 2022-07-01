@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BetterSubnautica.MonoBehaviours.Debug
+namespace BetterSavegames.MonoBehaviours
 {
     public class WaitScreenController : MonoBehaviour
     {

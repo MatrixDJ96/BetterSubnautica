@@ -1,10 +1,24 @@
 ﻿using BetterSubnautica.Enums;
+using BetterSubnautica.Extensions;
 
 namespace BetterSubnautica.MonoBehaviours.Debug
 {
     public class SubRootDebuggerController : AbstractDebuggerController<SubRoot>
     {
         public override bool ShowDebugInfo => Core.Settings.SubRootInfo;
+
+        private PowerRelay powerRelay = null;
+        private PowerRelay PowerRelay
+        {
+            get
+            {
+                if (powerRelay == null && Component != null)
+                {
+                    powerRelay = Component.GetPowerRelay();
+                }
+                return powerRelay;
+            }
+        }
 
         protected override LightsType LightsType
         {
@@ -29,9 +43,9 @@ namespace BetterSubnautica.MonoBehaviours.Debug
             get
             {
                 var capacity = 0f;
-                if (Component != null)
+                if (PowerRelay != null)
                 {
-                    capacity = Component.powerRelay.GetMaxPower();
+                    capacity = PowerRelay.GetMaxPower();
                 }
                 return capacity;
             }
@@ -42,9 +56,9 @@ namespace BetterSubnautica.MonoBehaviours.Debug
             get
             {
                 var charge = 0f;
-                if (Component != null)
+                if (PowerRelay != null)
                 {
-                    charge = Component.powerRelay.GetPower();
+                    charge = PowerRelay.GetPower();
                 }
                 return charge;
             }

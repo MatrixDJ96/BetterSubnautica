@@ -1,10 +1,6 @@
 ﻿#if SUBNAUTICA_STABLE
 using BetterSubnautica.Utility;
 using HarmonyLib;
-using System.Collections;
-using UnityEngine;
-using UWE;
-using CoroutineUtility = BetterSubnautica.Utility.CoroutineUtility;
 
 namespace BetterPDA.Patches
 {
@@ -14,20 +10,9 @@ namespace BetterPDA.Patches
     {
         static void Postfix(PDA __instance)
         {
-            if (Core.Settings.EnablePDAPause && !__instance.ui.introActive)
+            if (Core.Settings.EnablePDAPause)
             {
-                __instance.StartCoroutine(Wait(__instance));
-            }
-        }
-
-        static IEnumerator Wait(PDA __instance)
-        {
-            yield return CoroutineUtility.WaitForMilliseconds(500);
-
-            if (__instance.state == PDA.State.Opened)
-            {
-                Player.main.playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
-                FreezeTime.Begin(PDAUtility.FreezeId, true);
+                PDAUtility.FreezeBeginCoroutine(__instance, 500);
             }
         }
     }
@@ -38,10 +23,9 @@ namespace BetterPDA.Patches
     {
         static void Postfix(PDA __instance)
         {
-            if (Core.Settings.EnablePDAPause && !__instance.ui.introActive)
+            if (Core.Settings.EnablePDAPause)
             {
-                Player.main.playerAnimator.updateMode = AnimatorUpdateMode.Normal;
-                FreezeTime.End(PDAUtility.FreezeId);
+                PDAUtility.FreezeEnd(__instance);
             }
         }
     }

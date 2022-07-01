@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31CA63B1-7363-4AA7-AA96-D9B180161B2D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterPDA", "BetterPDA\BetterPDA.csproj", "{C1FA4C2F-D045-4790-A75D-559CFB602A39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterVehicles", "BetterVehicles\BetterVehicles.csproj", "{6D38AD35-CA01-40EA-9946-53CD36227732}"
@@ -17,10 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterQuickSlots", "BetterQ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterSubnautica", "BetterSubnautica\BetterSubnautica.csproj", "{B6665795-A64E-4401-BC3F-5ABFC3ADB20E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31CA63B1-7363-4AA7-AA96-D9B180161B2D}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterSavegames", "BetterSavegames\BetterSavegames.csproj", "{973FE786-0517-4AA9-84F6-A56EBD27F58F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +88,14 @@ Global
 		{B6665795-A64E-4401-BC3F-5ABFC3ADB20E}.SN.EXP|Any CPU.Build.0 = SN.EXP|Any CPU
 		{B6665795-A64E-4401-BC3F-5ABFC3ADB20E}.SN.STABLE|Any CPU.ActiveCfg = SN.STABLE|Any CPU
 		{B6665795-A64E-4401-BC3F-5ABFC3ADB20E}.SN.STABLE|Any CPU.Build.0 = SN.STABLE|Any CPU
+		{973FE786-0517-4AA9-84F6-A56EBD27F58F}.BZ.EXP|Any CPU.ActiveCfg = BZ.EXP|Any CPU
+		{973FE786-0517-4AA9-84F6-A56EBD27F58F}.BZ.EXP|Any CPU.Build.0 = BZ.EXP|Any CPU
+		{973FE786-0517-4AA9-84F6-A56EBD27F58F}.BZ.STABLE|Any CPU.ActiveCfg = BZ.STABLE|Any CPU
+		{973FE786-0517-4AA9-84F6-A56EBD27F58F}.BZ.STABLE|Any CPU.Build.0 = BZ.STABLE|Any CPU
+		{973FE786-0517-4AA9-84F6-A56EBD27F58F}.SN.EXP|Any CPU.ActiveCfg = SN.EXP|Any CPU
+		{973FE786-0517-4AA9-84F6-A56EBD27F58F}.SN.EXP|Any CPU.Build.0 = SN.EXP|Any CPU
+		{973FE786-0517-4AA9-84F6-A56EBD27F58F}.SN.STABLE|Any CPU.ActiveCfg = SN.STABLE|Any CPU
+		{973FE786-0517-4AA9-84F6-A56EBD27F58F}.SN.STABLE|Any CPU.Build.0 = SN.STABLE|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
-﻿using BetterSubnautica.MonoBehaviours.Debug;
+﻿using BetterSavegames.MonoBehaviours;
 using HarmonyLib;
 
-namespace BetterSubnautica.Patches
+namespace BetterSavegames.Patches
 {
     [HarmonyPatch(typeof(WaitScreen))]
     [HarmonyPatch(nameof(WaitScreen.Awake))]

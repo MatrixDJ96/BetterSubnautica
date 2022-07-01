@@ -1,16 +1,42 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 
 namespace BetterSubnautica.Utility
 {
-    public class CoroutineUtility
+    public static class CoroutineUtility
     {
-        public static IEnumerator WaitForMilliseconds(int milliseconds)
+        public static IEnumerator WaitUntil(Func<bool> predicate, Action action = null)
+        {
+            yield return new WaitUntil(predicate);
+
+            if (action != null)
+            {
+                action.Invoke();
+            }
+        }
+
+        public static IEnumerator WaitForSeconds(int seconds, Action action = null)
+        {
+            yield return new WaitForSeconds(seconds);
+
+            if (action != null)
+            {
+                action.Invoke();
+            }
+        }
+
+        public static IEnumerator WaitForMilliseconds(int milliseconds, Action action = null)
         {
             var stopwatch = Stopwatch.StartNew();
-            yield return new WaitUntil(() => stopwatch.Elapsed.Milliseconds >= milliseconds);
-            stopwatch.Stop();
+
+            yield return WaitUntil(() => stopwatch.Elapsed.Milliseconds >= milliseconds);
+
+            if (action != null)
+            {
+                action.Invoke();
+            }
         }
     }
 }

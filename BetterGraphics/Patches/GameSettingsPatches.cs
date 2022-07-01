@@ -18,12 +18,12 @@ namespace BetterGraphics.Patches
             var shadowDistance = QualitySettings.shadowDistance;
             var shadowResolution = QualitySettings.shadowResolution;
 
-            Screen.SetResolution(Core.Settings.ResolutionWidth, Core.Settings.ResolutionHeight, (FullScreenMode)Core.Settings.FullScreenMode);
+            Screen.SetResolution(Core.Settings.ResolutionWidth, Core.Settings.ResolutionHeight, Core.Settings.GetFixedFullScreenMode());
 
-            QualitySettings.anisotropicFiltering = (AnisotropicFiltering)Core.Settings.AnisotropicFiltering;
-            QualitySettings.shadows = (ShadowQuality)Core.Settings.ShadowQuality;
+            QualitySettings.anisotropicFiltering = Core.Settings.AnisotropicFiltering;
+            QualitySettings.shadows = Core.Settings.ShadowQuality;
             QualitySettings.shadowDistance = Core.Settings.ShadowDistance;
-            QualitySettings.shadowResolution = (ShadowResolution)Core.Settings.ShadowResolution;
+            QualitySettings.shadowResolution = Core.Settings.ShadowResolution;
 
             GraphicsUtility.OnQualityLevelChanged();
 
@@ -32,7 +32,7 @@ namespace BetterGraphics.Patches
                 DebuggerUtility.ShowWarning("Resolution: " + resolutionWidth + "x" + resolutionHeight + " -> " + Screen.width + "x" + Screen.height);
             }
 
-            if (resolutionWidth != Screen.currentResolution.width || resolutionHeight != Screen.currentResolution.height || fullScreenMode != Screen.fullScreenMode)
+            if (resolutionWidth != Screen.width || resolutionHeight != Screen.height || fullScreenMode != Screen.fullScreenMode)
             {
                 DebuggerUtility.ShowWarning("FullScreen Mode: " + fullScreenMode + " -> " + Screen.fullScreenMode);
             }

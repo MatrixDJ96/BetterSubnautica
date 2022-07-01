@@ -6,7 +6,7 @@ using UnityEngine;
 namespace BetterLights.Patches
 {
     [HarmonyPatch(typeof(VFXVolumetricLight))]
-    [HarmonyPatch(nameof(VFXVolumetricLight.UpdateMaterial), new Type[] { typeof(bool) })]
+    [HarmonyPatch(nameof(VFXVolumetricLight.UpdateMaterial), new[] { typeof(bool) })]
     class VFXVolumetricLightUpdateMaterialPatch
     {
         static bool Prefix(VFXVolumetricLight __instance, bool forceUpdate)

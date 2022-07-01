@@ -1,6 +1,5 @@
 ﻿using BetterSubnautica.Enums;
 using BetterSubnautica.Utility;
-using System.Collections;
 using UnityEngine;
 
 namespace BetterSubnautica.MonoBehaviours.Debug
@@ -52,18 +51,25 @@ namespace BetterSubnautica.MonoBehaviours.Debug
 
         protected virtual float PercentCharge => (Charge * 100) / Capacity;
 
-        protected virtual void Start()
+        protected virtual void OnDisable()
         {
-            StartCoroutine(StartAsync());
+            DeleteMessages();
         }
 
-        protected virtual IEnumerator StartAsync()
+        protected virtual void OnDestroy()
         {
-            yield return new WaitUntil(() => Component != null);
+            DeleteMessages();
+        }
 
-            LastCharge = Charge;
-            LastCapacity = Capacity;
-            LastUpdate = Time.time;
+        protected virtual void Awake()
+        {
+            if (Component == null)
+            {
+                Destroy(this);
+                return;
+            }
+
+            UpdateInfo(false);
         }
 
         protected virtual void Update()
@@ -72,41 +78,56 @@ namespace BetterSubnautica.MonoBehaviours.Debug
 
             if (showDebugInfo)
             {
-                if (LastUpdate > 0f)
+                ShowMessages();
+
+                if (LastUpdate + 1f < Time.time)
                 {
-                    if (ShowLights)
-                    {
-                        DebuggerUtility.ShowMessage($"{LightsActive:0.##} ({LightsType})", $"({GetInstanceID()}) {GetType().Name}.LightsStatus");
-                    }
-                    DebuggerUtility.ShowMessage($"{EnergyPerSecond:+0.####;-0.####;0.####}", $"({GetInstanceID()}) {GetType().Name}.EnergyPerSecond");
-                    DebuggerUtility.ShowMessage($"{Charge:0.##}/{Capacity:0.##} ({PercentCharge:0.##}%)", $"({GetInstanceID()}) {GetType().Name}.AvailableEnergy");
-                    DebuggerUtility.ShowMessage("", $"({GetInstanceID()}) {GetType().Name}.ZZZ");
-
-                    if (LastUpdate + 1f < Time.time)
-                    {
-                        EnergyPerSecond = Charge - LastCharge;
-
-                        LastCharge = Charge;
-                        LastCapacity = Capacity;
-                        LastUpdate = Time.time;
-                    }
+                    UpdateInfo();
                 }
             }
             else
             {
                 if (lastEnabled != showDebugInfo)
                 {
-                    if (ShowLights)
-                    {
-                        DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.LightsStatus");
-                    }
-                    DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.EnergyPerSecond");
-                    DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.AvailableEnergy");
-                    DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.ZZZ");
+                    DeleteMessages();
                 }
             }
 
             lastEnabled = showDebugInfo;
+        }
+
+        protected virtual void UpdateInfo(bool withEnergy = true)
+        {
+            if (withEnergy)
+            {
+                EnergyPerSecond = Charge - LastCharge;
+            }
+
+            LastCharge = Charge;
+            LastCapacity = Capacity;
+            LastUpdate = Time.time;
+        }
+
+        protected virtual void ShowMessages()
+        {
+            if (ShowLights)
+            {
+                DebuggerUtility.ShowMessage($"{LightsActive:0.##} ({LightsType})", $"({GetInstanceID()}) {GetType().Name}.LightsStatus");
+            }
+            DebuggerUtility.ShowMessage($"{EnergyPerSecond:+0.####;-0.####;0.####}", $"({GetInstanceID()}) {GetType().Name}.EnergyPerSecond");
+            DebuggerUtility.ShowMessage($"{Charge:0.##}/{Capacity:0.##} ({PercentCharge:0.##}%)", $"({GetInstanceID()}) {GetType().Name}.AvailableEnergy");
+            DebuggerUtility.ShowMessage("", $"({GetInstanceID()}) {GetType().Name}.ZZZ");
+        }
+
+        protected virtual void DeleteMessages()
+        {
+            if (ShowLights)
+            {
+                DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.LightsStatus");
+            }
+            DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.EnergyPerSecond");
+            DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.AvailableEnergy");
+            DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.ZZZ");
         }
     }
 }

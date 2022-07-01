@@ -1,7 +1,4 @@
 using BetterQuickSlots.Utility;
-using BetterSubnautica.Utility;
-using System;
-using System.Reflection;
 using UnityEngine;
 #if SUBNAUTICA_STABLE
 using Text = UnityEngine.UI.Text;
@@ -14,174 +11,118 @@ namespace BetterQuickSlots.MonoBehaviours
 {
     public class QuickSlotsController : MonoBehaviour
     {
-        private Text[] labels = Array.Empty<Text>();
+        private static QuickSlotsController instance;
+        public static QuickSlotsController Instance => instance;
 
-        private uGUI_QuickSlots quickSlots = null;
-        private uGUI_QuickSlots QuickSlots
+        private uGUI_QuickSlots component = null;
+        public uGUI_QuickSlots Component
         {
             get
             {
-                if (quickSlots == null)
+                if (component == null)
                 {
-                    quickSlots = uGUI.main.quickSlots;
+                    component = gameObject.GetComponent<uGUI_QuickSlots>();
                 }
-                return quickSlots;
+                return component;
             }
         }
 
-        private QuickSlots target = null;
-        private QuickSlots Target
+        public uGUI_ItemIcon[] Icons => Component != null ? component.icons : null;
+
+        public QuickSlots Target => Component != null ? component.target as QuickSlots : null;
+
+        public bool ForceUpdate { get; set; } = true;
+
+        protected void Awake()
         {
-            get
+            if (instance != null)
             {
-                if (target == null && quickSlots != null)
-                {
-                    target = (QuickSlots)quickSlots.target;
-                }
-                return target;
+                Destroy(this);
+                return;
             }
-        }
 
-        private int SlotCount
-        {
-            get
-            {
-                var slotCount = 0;
-                if (target != null)
-                {
-                    slotCount = target.slotCount;
-                }
-                return slotCount;
-            }
+            instance = this;
         }
-
-        private int FontSize
-        {
-            get
-            {
-                var fontSize = 0;
-                if (labels.Length > 0 && labels[0] != null)
-                {
-#if SUBNAUTICA_STABLE
-                    fontSize = labels[0].fontSize;
-#else
-                    fontSize = (int)labels[0].fontSize;
-#endif
-                }
-                return fontSize;
-            }
-        }
-
-        private int TextOffsetY { get; set; } = 0;
 
         protected void Update()
         {
-            if (QuickSlots != null && Target != null)
+            if (Component != null && Target != null)
             {
-                if (SlotCount != Core.Settings.SlotCount)
+                var slotCount = Core.Settings.SlotCount;
+                var textFontSize = Core.Settings.TextFontSize;
+                var textOffsetY = Core.Settings.TextOffsetY;
+
+                if (ForceUpdate)
                 {
-                    UpdateSlotCount();
-                    Reinitialize();
-                    return;
-                }
-                if (FontSize != Core.Settings.TextFontSize || TextOffsetY != Core.Settings.TextOffsetY)
-                {
-                    UpdateSlotLabel();
-                }
-            }
-        }
+                    var newBinding = new InventoryItem[slotCount];
+                    var oldBinding = Target.binding;
 
-        protected void UpdateSlotCount()
-        {
-            var slotCount = Core.Settings.SlotCount;
-            var newBinding = new InventoryItem[slotCount];
-            var oldBinding = target.binding;
-
-            for (int i = 0; i < oldBinding.Length; i++)
-            {
-                if (i < newBinding.Length)
-                {
-                    newBinding[i] = oldBinding[i];
-                }
-            }
-
-            target.binding = newBinding;
-            target.slotCount = slotCount;
-        }
-
-        protected void UpdateSlotLabel()
-        {
-#if SUBNAUTICA_STABLE
-            var defaultText = HandReticle.main.interactPrimaryText;
-#else
-            var defaultText = HandReticle.main.compTextHand;
-#endif
-
-            TextOffsetY = Core.Settings.TextOffsetY;
-
-            if (labels.Length != SlotCount)
-            {
-                labels = new Text[SlotCount];
-            }
-
-            for (int i = 0; i < quickSlots.icons.Length; i++)
-            {
-                if (labels[i] == null)
-                {
-                    labels[i] = Instantiate(defaultText, quickSlots.icons[i].transform, false);
-                }
-
-                labels[i].enabled = true;
-                labels[i].gameObject.SetActive(true);
-
-                labels[i].text = GetInputSlotName(i);
-                labels[i].fontSize = Core.Settings.TextFontSize;
-
-#if SUBNAUTICA_STABLE
-                labels[i].alignment = TextAnchor.MiddleCenter;
-                labels[i].verticalOverflow = VerticalWrapMode.Overflow;
-                labels[i].horizontalOverflow = HorizontalWrapMode.Overflow;
-#else
-                labels[i].alignment = TextAlignmentOptions.Center;
-                labels[i].overflowMode = TextOverflowModes.Overflow;
-#endif
-
-                labels[i].rectTransform.localScale = Vector3.one;
-                labels[i].rectTransform.localPosition = Vector3.zero;
-                labels[i].rectTransform.localRotation = Quaternion.identity;
-
-                labels[i].rectTransform.pivot = new Vector2(0.5f, 0.5f);
-                labels[i].rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-                labels[i].rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-
-                labels[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, labels[i].preferredHeight);
-                labels[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, labels[i].preferredWidth);
-
-                labels[i].rectTransform.anchoredPosition = new Vector2(0f, quickSlots.icons[i].rectTransform.rect.y - TextOffsetY);
-            }
-        }
-
-        public void Reinitialize()
-        {
-            quickSlots.Init(target);
-        }
-
-        private string GetInputSlotName(int slot)
-        {
-            if (slot < SlotCount)
-            {
-                var bindingFlags = BindingFlags.Public | BindingFlags.Static;
-
-                foreach (var property in typeof(SlotsUtility).GetProperties(bindingFlags))
-                {
-                    if (property.Name.ToLower() == ("slot" + (slot + 1).ToString()))
+                    for (int i = 0; i < oldBinding.Length; i++)
                     {
-                        return KeyCodeUtility.GetName((KeyCode)property.GetValue(null));
+                        if (i < newBinding.Length)
+                        {
+                            newBinding[i] = oldBinding[i];
+                        }
+                    }
+
+                    Target.binding = newBinding;
+                    Target.slotCount = slotCount;
+
+                    component.Init(Target);
+
+                    if (Icons != null && Icons.Length == slotCount)
+                    {
+#if SUBNAUTICA_STABLE
+                        var defaultText = HandReticle.main.interactPrimaryText;
+#else
+                        var defaultText = HandReticle.main.compTextHand;
+#endif
+
+                        var labels = new Text[slotCount];
+
+                        for (int i = 0; i < labels.Length; i++)
+                        {
+                            labels[i] = Instantiate(defaultText, Icons[i].transform, false);
+
+                            labels[i].enabled = true;
+                            labels[i].gameObject.SetActive(true);
+
+                            labels[i].text = SlotsUtility.GetInputSlotName(i);
+                            labels[i].fontSize = textFontSize;
+
+#if SUBNAUTICA_STABLE
+                            labels[i].alignment = TextAnchor.MiddleCenter;
+                            labels[i].verticalOverflow = VerticalWrapMode.Overflow;
+                            labels[i].horizontalOverflow = HorizontalWrapMode.Overflow;
+#else
+                            labels[i].alignment = TextAlignmentOptions.Center;
+                            labels[i].overflowMode = TextOverflowModes.Overflow;
+#endif
+
+                            labels[i].rectTransform.localScale = Vector3.one;
+                            labels[i].rectTransform.localPosition = Vector3.zero;
+                            labels[i].rectTransform.localRotation = Quaternion.identity;
+
+                            labels[i].rectTransform.pivot = new Vector2(0.5f, 0.5f);
+                            labels[i].rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                            labels[i].rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+
+                            labels[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, labels[i].preferredHeight);
+                            labels[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, labels[i].preferredWidth);
+
+                            labels[i].rectTransform.anchoredPosition = new Vector2(0f, Icons[i].rectTransform.rect.y - textOffsetY);
+                        }
+
+                        TooltipFactory.RefreshActionStrings();
+
+                        ForceUpdate = false;
                     }
                 }
             }
-
-            return "";
+            else
+            {
+                ForceUpdate = true;
+            }
         }
     }
 }

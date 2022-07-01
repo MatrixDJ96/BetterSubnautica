@@ -1,9 +1,6 @@
 ﻿#if SUBNAUTICA_STABLE
 using BetterSubnautica.Utility;
 using HarmonyLib;
-using System.Collections;
-using UWE;
-using CoroutineUtility = BetterSubnautica.Utility.CoroutineUtility;
 
 namespace BetterPDA.Patches
 {
@@ -13,17 +10,11 @@ namespace BetterPDA.Patches
     {
         static void Postfix(Survival __instance, bool __result)
         {
-            if (__result && Core.Settings.EnablePDAPause && !__instance.player.GetPDA().ui.introActive)
+            if (__result && Core.Settings.EnablePDAPause && __instance.player.GetPDA() is PDA pda)
             {
-                FreezeTime.End(PDAUtility.FreezeId);
-                __instance.StartCoroutine(PauseCoroutine());
+                PDAUtility.FreezeEnd(pda);
+                PDAUtility.FreezeBeginCoroutine(pda, 150);
             }
-        }
-
-        public static IEnumerator PauseCoroutine()
-        {
-            yield return CoroutineUtility.WaitForMilliseconds(150);
-            FreezeTime.Begin(PDAUtility.FreezeId, true);
         }
     }
 
@@ -33,17 +24,11 @@ namespace BetterPDA.Patches
     {
         static void Postfix(Survival __instance, bool __result)
         {
-            if (__result && Core.Settings.EnablePDAPause && !__instance.player.GetPDA().ui.introActive)
+            if (__result && Core.Settings.EnablePDAPause && __instance.player.GetPDA() is PDA pda)
             {
-                FreezeTime.End(PDAUtility.FreezeId);
-                __instance.StartCoroutine(PauseCoroutine());
+                PDAUtility.FreezeEnd(pda);
+                PDAUtility.FreezeBeginCoroutine(pda, 150);
             }
-        }
-
-        public static IEnumerator PauseCoroutine()
-        {
-            yield return CoroutineUtility.WaitForMilliseconds(150);
-            FreezeTime.Begin(PDAUtility.FreezeId, true);
         }
     }
 }

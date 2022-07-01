@@ -12,7 +12,7 @@ namespace BetterSubnautica.Patches
     {
         static void Postfix(EarlyAccessDisclaimer __instance)
         {
-            __instance.text.text = "Modded with <color=#3399ffff><b>BetterSubnautica v" + Assembly.GetExecutingAssembly().GetName().Version + "<b></color>\n\nCreated by <color=#ff0000ff><b>MatrixDJ96<b></color>";
+            __instance.text.text = "Modded with <size=25><color=#00ffffff><b>BetterSubnautica v" + Assembly.GetExecutingAssembly().GetName().Version + "<b></color></size>\n\nCreated by <color=#ff0000ff><b>MatrixDJ96<b></color>";
         }
     }
 }

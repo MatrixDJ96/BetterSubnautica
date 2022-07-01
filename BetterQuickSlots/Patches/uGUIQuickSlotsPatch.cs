@@ -11,11 +11,11 @@ namespace BetterQuickSlots.Patches
     {
         static void Postfix(uGUI __instance)
         {
-            if (uGUI.main == __instance)
+            if (uGUI.main == __instance && __instance.quickSlots is uGUI_QuickSlots quickSlots)
             {
-                if (__instance.gameObject.GetComponent<QuickSlotsController>() == null)
+                if (quickSlots.gameObject.GetComponent<QuickSlotsController>() == null)
                 {
-                    __instance.gameObject.AddComponent<QuickSlotsController>();
+                    quickSlots.gameObject.AddComponent<QuickSlotsController>();
                 }
             }
         }
