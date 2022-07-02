@@ -65,9 +65,8 @@ namespace BetterHUD.MonoBehaviours
         {
             while (
                 LightmappedPrefabs.main == null || LightmappedPrefabs.main.IsWaitingOnLoads() ||
-                uGUI.main == null || uGUI.main.loading == null || uGUI.main.loading.IsLoading ||
                 PAXTerrainController.main == null || PAXTerrainController.main.isWorking ||
-                HandReticle.main == null
+                uGUI.main == null || uGUI.isLoading || HandReticle.main == null
                 )
             {
                 yield return null;

@@ -17,7 +17,7 @@ namespace BetterGraphics.Patches
     [HarmonyPatch(nameof(MainMenuVsync.ToggleVsync))]
     class MainMenuVsyncToggleVsyncPatch
     {
-        static bool Prefix(MainMenuVsync __instance)
+        static bool Prefix()
         {
             return false;
         }

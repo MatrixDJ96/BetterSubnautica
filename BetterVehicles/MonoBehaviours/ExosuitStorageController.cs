@@ -4,7 +4,7 @@
     {
         public override IItemsContainer[] GetDefaultStorage()
         {
-            return new[] { (vehicle as Exosuit).storageContainer.container };
+            return new[] { (component as Exosuit).storageContainer.container };
         }
 
         public override IItemsContainer[] GetTorpedoStorage()

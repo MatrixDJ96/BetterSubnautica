@@ -21,14 +21,14 @@ namespace BetterGraphics
         [Toggle("Enable VSync"), OnChange(nameof(VSyncFramerateEvent))]
         public bool VSyncEnable { get; set; } = true;
 
-        [Slider("VSync Frame Count", 1, 3, DefaultValue = 1), OnChange(nameof(VSyncFramerateEvent))]
-        public int VSyncFrameCount { get; set; } = 1;
+        [Slider("Maximum Frames Count", 1, 4, Tooltip = "Maximum number of frames queued up by graphics driver", DefaultValue = 2), OnChange(nameof(VSyncFramerateEvent))]
+        public int MaximumFrameCount { get; set; } = QualitySettings.maxQueuedFrames;
 
         [Toggle("Enable Framerate Limit"), OnChange(nameof(VSyncFramerateEvent))]
         public bool FramerateLimitEnable { get; set; } = false;
 
-        [Slider("Framerate Limit Count", 1, 500, DefaultValue = 60), OnChange(nameof(VSyncFramerateEvent))]
-        public int FramerateLimitCount { get; set; } = 60;
+        [Slider("Framerate Limit", 1, 500, DefaultValue = 60), OnChange(nameof(VSyncFramerateEvent))]
+        public int FramerateLimit { get; set; } = 60;
 
         [Choice("Anisotropic Filtering", new[] { "Disabled", "Enabled", "Force Enabled" }), OnChange(nameof(AnisotropicFilteringEvent))]
         public AnisotropicFiltering AnisotropicFiltering { get; set; } = AnisotropicFiltering.ForceEnable;
@@ -50,12 +50,12 @@ namespace BetterGraphics
 
         public int GetFixedVSyncCount()
         {
-            return VSyncEnable ? VSyncFrameCount : 0;
+            return VSyncEnable ? 1 : 0;
         }
 
         public int GetFixedFramerateCount()
         {
-            return FramerateLimitEnable ? FramerateLimitCount : -1;
+            return FramerateLimitEnable ? FramerateLimit : -1;
         }
 
         private void FullScreenModeEvent(ChoiceChangedEventArgs e)
@@ -67,6 +67,7 @@ namespace BetterGraphics
         private void VSyncFramerateEvent(SliderChangedEventArgs e)
         {
             QualitySettings.vSyncCount = GetFixedVSyncCount();
+            QualitySettings.maxQueuedFrames = MaximumFrameCount;
             Application.targetFrameRate = GetFixedFramerateCount();
         }
 

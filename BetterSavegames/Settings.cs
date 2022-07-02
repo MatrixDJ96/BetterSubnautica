@@ -10,6 +10,6 @@ namespace BetterSavegames
         public bool AutoloadLatestSavegame { get; set; } = true;
 
         [Toggle("Maximize Loading Speed", Tooltip = "Unlock FPS while loading to maximize speed")]
-        public bool MaximizeLoadingSpeed  { get; set; } = true;
+        public bool MaximizeLoadingSpeed { get; set; } = true;
     }
 }

@@ -34,6 +34,11 @@ namespace BetterSubnautica
         [Toggle("Enable Flashlight Info")]
         public bool FlashlightInfo { get; set; } = true;
 
+#if BELOWZERO
+        [Toggle("Enable Flashlight Helmet Info")]
+        public bool FlashlightHelmetInfo { get; set; } = true;
+#endif
+
         [Toggle("Enable Seaglide Info")]
         public bool SeaglideInfo { get; set; } = true;
     }

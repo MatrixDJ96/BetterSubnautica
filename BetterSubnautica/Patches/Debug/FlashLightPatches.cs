@@ -18,4 +18,19 @@ namespace BetterSubnautica.Patches.Debug
             }
         }
     }
+
+#if BELOWZERO
+    [HarmonyPatch(typeof(FlashlightHelmet))]
+    [HarmonyPatch(nameof(FlashlightHelmet.Awake))]
+    class FlashlightHelmetAwakePatch
+    {
+        static void Postfix(FlashlightHelmet __instance)
+        {
+            if (__instance.gameObject.GetComponent<FlashlightHelmetDebuggerController>() == null)
+            {
+                __instance.gameObject.AddComponent<FlashlightHelmetDebuggerController>();
+            }
+        }
+    }
+#endif
 }

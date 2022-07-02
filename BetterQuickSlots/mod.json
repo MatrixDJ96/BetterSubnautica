@@ -2,10 +2,10 @@
   "Id": "BetterQuickSlots",
   "DisplayName": "Better Quick Slots",
   "Author": "MatrixDJ96",
-  "Version": "0.0.3.2",
+  "Version": "0.0.3.3",
   "VersionDependencies": {
     "SMLHelper": "2.13.0",
-    "BetterSubnautica": "0.0.3.2"
+    "BetterSubnautica": "0.0.3.3"
   },
   "Enable": true,
   "Game": "Both",

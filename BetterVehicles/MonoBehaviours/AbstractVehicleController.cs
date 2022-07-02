@@ -6,16 +6,16 @@ namespace BetterVehicles.MonoBehaviours
 {
     public abstract class AbstractVehicleStorageController : MonoBehaviour
     {
-        protected Vehicle vehicle;
+        protected Vehicle component;
 
         protected virtual void Awake()
         {
-            vehicle = gameObject.GetComponent<Vehicle>();
+            component = gameObject.GetComponent<Vehicle>();
         }
 
         protected virtual void Update()
         {
-            if (Player.main.GetVehicle() == vehicle)
+            if (AvatarInputHandler.main.IsEnabled() && Player.main.GetVehicle() is Vehicle vehicle && vehicle == component)
             {
                 var upgrade = Input.GetKeyDown(Core.GlobalSettings.UpgradeModules);
                 var torpedo = Input.GetKeyDown(Core.GlobalSettings.TorpedoStorage);
@@ -51,11 +51,7 @@ namespace BetterVehicles.MonoBehaviours
 
                 if (Inventory.main.GetUsedStorageCount() != 0)
                 {
-#if SUBNAUTICA_STABLE
-                    Player.main.GetPDA().Open(PDATab.Inventory, null, null, -1f);
-#else
-                    Player.main.GetPDA().Open(PDATab.Inventory, null, null);
-#endif
+                    Player.main.GetPDA().Open(PDATab.Inventory);
                 }
             }
         }
@@ -64,9 +60,9 @@ namespace BetterVehicles.MonoBehaviours
         {
             List<IItemsContainer> storages = new();
 
-            for (int i = 0; i < vehicle.GetSlotCount(); i++)
+            for (int i = 0; i < component.GetSlotCount(); i++)
             {
-                if (vehicle.GetStorageInSlot(i, techType) is IItemsContainer container)
+                if (component.GetStorageInSlot(i, techType) is IItemsContainer container)
                 {
                     storages.Add(container);
                 }
@@ -79,7 +75,7 @@ namespace BetterVehicles.MonoBehaviours
 
         public virtual IItemsContainer[] GetUpgradeModules()
         {
-            return new[] { vehicle.upgradesInput.equipment };
+            return new[] { component.upgradesInput.equipment };
         }
 
         public abstract IItemsContainer[] GetTorpedoStorage();

@@ -1,16 +1,17 @@
-﻿using BetterSubnautica.Extensions;
+﻿#if BELOWZERO
+using BetterSubnautica.Extensions;
 using UnityEngine;
 
 namespace BetterLights.MonoBehaviours.ToggleLights
 {
-    public class SeaglideToggleLightsController : AbstractToggleLightsController<Seaglide>
+    public class FlashlightHelmetToggleLightsController : AbstractToggleLightsController<FlashlightHelmet>
     {
         private EnergyMixin energyMixin = null;
         private global::ToggleLights toggleLights = null;
 
-        protected override bool KeyDown => Input.GetKeyDown(Core.SeaglideSettings.LightsButtonToggle);
+        protected override bool KeyDown => Input.GetKeyDown(Core.FlashlightHelmetSettings.LightsButtonToggle);
 
-        public override float EnergyConsumption => Core.SeaglideSettings.LightsConsumption;
+        public override float EnergyConsumption => 0f; // Core.FlashlightHelmetSettings.LightsConsumption
 
         protected override void Awake()
         {
@@ -60,5 +61,11 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                 energyMixin.ConsumeEnergy(amount);
             }
         }
+
+        protected override bool CanToggleLightsActive()
+        {
+            return base.CanToggleLightsActive() && !Player.main.isPiloting && Inventory.main.GetHeldObject() == null;
+        }
     }
 }
+#endif

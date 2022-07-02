@@ -13,6 +13,9 @@ namespace BetterLights
         public static Harmony Harmony { get; } = new Harmony("BetterLights");
 
         public static FlashlightSettings FlashlightSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<FlashlightSettings>();
+#if BELOWZERO
+        public static FlashlightHelmetSettings FlashlightHelmetSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<FlashlightHelmetSettings>();
+#endif
         public static SeaglideSettings SeaglideSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<SeaglideSettings>();
 #if SUBNAUTICA
         public static SeamothSettings SeamothSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<SeamothSettings>();

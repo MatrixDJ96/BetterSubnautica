@@ -31,14 +31,14 @@ namespace BetterGraphics.Patches
 #if SUBNAUTICA
     // AddToggleOption(int tabIndex, string label, bool value, UnityAction<bool> callback = null)
     [HarmonyPatch(nameof(uGUI_TabbedControlsPanel.AddToggleOption), new[] { typeof(int), typeof(string), typeof(bool), typeof(UnityAction<bool>) })]
-    class uGUI_TabbedControlsPanelAddToggleOptionPatch
+    class uGUITabbedControlsPanelAddToggleOptionPatch
     {
         static void Postfix(Toggle __result, int tabIndex, string label, bool value, UnityAction<bool> callback = null)
         {
 #elif BELOWZERO
     // AddToggleOption(int tabIndex, string label, bool value, UnityAction<bool> callback = null, string tooltip = null)
     [HarmonyPatch(nameof(uGUI_TabbedControlsPanel.AddToggleOption), new[] { typeof(int), typeof(string), typeof(bool), typeof(UnityAction<bool>), typeof(string) })]
-    class uGUI_TabbedControlsPanelAddToggleOptionPatch
+    class uGUITabbedControlsPanelAddToggleOptionPatch
     {
         static void Postfix(Toggle __result, int tabIndex, string label, bool value, UnityAction<bool> callback = null, string tooltip = null)
         {
@@ -53,7 +53,7 @@ namespace BetterGraphics.Patches
 #if BELOWZERO
     [HarmonyPatch(typeof(uGUI_TabbedControlsPanel))]
     [HarmonyPatch(nameof(uGUI_TabbedControlsPanel.AddSliderOption), new[] { typeof(int), typeof(string), typeof(float), typeof(float), typeof(float), typeof(float), typeof(float), typeof(UnityAction<float>), typeof(SliderLabelMode), typeof(string) })]
-    class uGUI_TabbedControlsPanelAddSliderOptionPatch
+    class uGUITabbedControlsPanelAddSliderOptionPatch
     {
         static void Postfix(GameObject __result, int tabIndex, string label, float value, float minValue, float maxValue, float defaultValue, float step, UnityAction<float> callback, SliderLabelMode labelMode, string floatFormat)
         {
@@ -61,6 +61,16 @@ namespace BetterGraphics.Patches
             {
                 __result.SetActive(false);
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(uGUI_OptionsPanel))]
+    [HarmonyPatch(nameof(uGUI_OptionsPanel.OnVSyncChanged))]
+    class uGUI_OptionsPanelOptionPatch
+    {
+        static void Postfix(uGUI_OptionsPanel __instance)
+        {
+            __instance.targetFrameRateOption.SetActive(false);
         }
     }
 #endif

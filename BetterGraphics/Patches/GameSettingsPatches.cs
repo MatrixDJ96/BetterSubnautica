@@ -13,12 +13,6 @@ namespace BetterGraphics.Patches
             var resolutionWidth = Screen.width;
             var resolutionHeight = Screen.height;
             var fullScreenMode = Screen.fullScreenMode;
-            var vSyncCount = QualitySettings.vSyncCount;
-            var framerateLimit = Application.targetFrameRate;
-            var anisotropicFiltering = QualitySettings.anisotropicFiltering;
-            var shadows = QualitySettings.shadows;
-            var shadowDistance = QualitySettings.shadowDistance;
-            var shadowResolution = QualitySettings.shadowResolution;
 
             if (resolutionWidth != Core.Settings.ResolutionWidth || resolutionHeight != Core.Settings.ResolutionHeight || fullScreenMode != Core.Settings.GetFixedFullScreenMode())
             {
@@ -26,6 +20,7 @@ namespace BetterGraphics.Patches
             }
 
             QualitySettings.vSyncCount = Core.Settings.GetFixedVSyncCount();
+            QualitySettings.maxQueuedFrames = Core.Settings.MaximumFrameCount;
             Application.targetFrameRate = Core.Settings.GetFixedFramerateCount();
             QualitySettings.anisotropicFiltering = Core.Settings.AnisotropicFiltering;
             QualitySettings.shadows = Core.Settings.ShadowQuality;
@@ -42,36 +37,6 @@ namespace BetterGraphics.Patches
             if (fullScreenMode != Screen.fullScreenMode)
             {
                 DebuggerUtility.ShowWarning("FullScreen Mode: " + fullScreenMode + " -> " + Screen.fullScreenMode);
-            }
-
-            if (vSyncCount != QualitySettings.vSyncCount)
-            {
-                DebuggerUtility.ShowWarning("VSync: " + vSyncCount + " -> " + QualitySettings.vSyncCount);
-            }
-
-            if (framerateLimit != Application.targetFrameRate)
-            {
-                DebuggerUtility.ShowWarning("Framerate: " + framerateLimit + " -> " + Application.targetFrameRate);
-            }
-
-            if (anisotropicFiltering != QualitySettings.anisotropicFiltering)
-            {
-                DebuggerUtility.ShowWarning("Anisotropic Filtering: " + anisotropicFiltering + " -> " + QualitySettings.anisotropicFiltering);
-            }
-
-            if (shadows != QualitySettings.shadows)
-            {
-                DebuggerUtility.ShowWarning("Shadow Quality: " + shadows + " -> " + QualitySettings.shadows);
-            }
-
-            if (shadowDistance != QualitySettings.shadowDistance)
-            {
-                DebuggerUtility.ShowWarning("Shadow Distance: " + shadowDistance + " -> " + QualitySettings.shadowDistance);
-            }
-
-            if (shadowResolution != QualitySettings.shadowResolution)
-            {
-                DebuggerUtility.ShowWarning("Shadow Resolution: " + shadowResolution + " -> " + QualitySettings.shadowResolution);
             }
 
             Core.Settings.Save();

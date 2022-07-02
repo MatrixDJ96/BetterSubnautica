@@ -132,6 +132,7 @@
     <Compile Include="MonoBehaviours\Debug\CyclopsDebuggerController.cs" />
     <Compile Include="MonoBehaviours\Debug\ExosuitDebuggerController.cs" />
     <Compile Include="MonoBehaviours\Debug\FlashlightDebuggerController.cs" />
+    <Compile Include="MonoBehaviours\Debug\FlashlightHelmetDebuggerController.cs" />
     <Compile Include="MonoBehaviours\Debug\MapRoomCameraDebuggerController.cs" />
     <Compile Include="MonoBehaviours\Debug\SeaglideDebuggerController.cs" />
     <Compile Include="MonoBehaviours\Debug\SeamothDebuggerController.cs" />

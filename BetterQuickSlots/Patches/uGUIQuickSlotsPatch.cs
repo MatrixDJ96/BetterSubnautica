@@ -27,7 +27,7 @@ namespace BetterQuickSlots.Patches
     {
         static void Postfix(uGUI_QuickSlots __instance)
         {
-            if (Player.main.GetCanItemBeUsed() && !IntroVignette.isIntroActive && __instance.target != null)
+            if (Player.main.GetCanItemBeUsed() && !uGUI.isIntro && !uGUI.isLoading && __instance.target != null)
             {
                 var traverse = Traverse.Create(typeof(SlotsUtility));
 

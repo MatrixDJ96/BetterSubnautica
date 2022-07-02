@@ -1,5 +1,4 @@
-﻿using BetterSubnautica.Attributes;
-using HarmonyLib;
+﻿using HarmonyLib;
 
 namespace BetterGraphics.Patches
 {
