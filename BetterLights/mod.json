@@ -2,10 +2,10 @@
   "Id": "BetterLights",
   "DisplayName": "Better Lights",
   "Author": "MatrixDJ96",
-  "Version": "0.0.3.1",
+  "Version": "0.0.3.2",
   "VersionDependencies": {
     "SMLHelper": "2.13.0",
-    "BetterSubnautica": "0.0.3.1"
+    "BetterSubnautica": "0.0.3.2"
   },
   "Enable": true,
   "Game": "Both",

@@ -7,22 +7,25 @@ namespace BetterSavegames.MonoBehaviours
         private int frameRate;
         private int vSyncCount;
 
-        protected void Awake()
-        {
-            frameRate = Application.targetFrameRate;
-            vSyncCount = QualitySettings.vSyncCount;
-        }
-
         public void UnlockFramerate()
         {
-            Application.targetFrameRate = -1;
-            QualitySettings.vSyncCount = 0;
+            if (Core.Settings.MaximizeLoadingSpeed)
+            {
+                frameRate = Application.targetFrameRate;
+                vSyncCount = QualitySettings.vSyncCount;
+
+                Application.targetFrameRate = -1;
+                QualitySettings.vSyncCount = 0;
+            }
         }
 
         public void RestoreFramerate()
         {
-            Application.targetFrameRate = frameRate;
-            QualitySettings.vSyncCount = vSyncCount;
+            if (Core.Settings.MaximizeLoadingSpeed)
+            {
+                Application.targetFrameRate = frameRate;
+                QualitySettings.vSyncCount = vSyncCount;
+            }
         }
     }
 }

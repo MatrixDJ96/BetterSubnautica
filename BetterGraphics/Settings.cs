@@ -18,13 +18,25 @@ namespace BetterGraphics
         [Choice("FullScreen Mode", new[] { "Exclusive FullScreen", "FullScreen Window", "Windowed" }), OnChange(nameof(FullScreenModeEvent))]
         public FullScreenModeEnum FullScreenMode { get; set; } = Screen.fullScreenMode;
 
+        [Toggle("Enable VSync"), OnChange(nameof(VSyncFramerateEvent))]
+        public bool VSyncEnable { get; set; } = true;
+
+        [Slider("VSync Frame Count", 1, 3, DefaultValue = 1), OnChange(nameof(VSyncFramerateEvent))]
+        public int VSyncFrameCount { get; set; } = 1;
+
+        [Toggle("Enable Framerate Limit"), OnChange(nameof(VSyncFramerateEvent))]
+        public bool FramerateLimitEnable { get; set; } = false;
+
+        [Slider("Framerate Limit Count", 1, 500, DefaultValue = 60), OnChange(nameof(VSyncFramerateEvent))]
+        public int FramerateLimitCount { get; set; } = 60;
+
         [Choice("Anisotropic Filtering", new[] { "Disabled", "Enabled", "Force Enabled" }), OnChange(nameof(AnisotropicFilteringEvent))]
-        public AnisotropicFiltering AnisotropicFiltering { get; set; } = QualitySettings.anisotropicFiltering;
+        public AnisotropicFiltering AnisotropicFiltering { get; set; } = AnisotropicFiltering.ForceEnable;
 
         [Choice("Shadow Quality", new[] { "Disable", "Hard Only", "All" }), OnChange(nameof(ShadowQualityEvent))]
         public ShadowQuality ShadowQuality { get; set; } = QualitySettings.shadows;
 
-        [Slider("Shadow Distance", 0, 200, Step = 1), OnChange(nameof(ShadowDistanceEvent))]
+        [Slider("Shadow Distance", 0, 200, DefaultValue = 50, Step = 1), OnChange(nameof(ShadowDistanceEvent))]
         public float ShadowDistance { get; set; } = QualitySettings.shadowDistance;
 
         [Choice("Shadow Resolution", new[] { "Low", "Medium", "High", "Very High" }), OnChange(nameof(ShadowResolutionEvent))]
@@ -36,10 +48,26 @@ namespace BetterGraphics
             return FullScreenMode == FullScreenModeEnum.MaximizedWindow ? FullScreenModeEnum.Windowed : FullScreenMode;
         }
 
+        public int GetFixedVSyncCount()
+        {
+            return VSyncEnable ? VSyncFrameCount : 0;
+        }
+
+        public int GetFixedFramerateCount()
+        {
+            return FramerateLimitEnable ? FramerateLimitCount : -1;
+        }
+
         private void FullScreenModeEvent(ChoiceChangedEventArgs e)
         {
             Screen.fullScreenMode = GetFixedFullScreenMode();
             GraphicsUtility.OnQualityLevelChanged();
+        }
+
+        private void VSyncFramerateEvent(SliderChangedEventArgs e)
+        {
+            QualitySettings.vSyncCount = GetFixedVSyncCount();
+            Application.targetFrameRate = GetFixedFramerateCount();
         }
 
         private void AnisotropicFilteringEvent(ChoiceChangedEventArgs e)

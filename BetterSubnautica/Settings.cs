@@ -6,7 +6,7 @@ namespace BetterSubnautica
     [Menu("Better Subnautica")]
     public class Settings : ConfigFile
     {
-        [Toggle("Show Debug Info")]
+        [Toggle("Show Debug Info", Tooltip = "Enable debug on screen to show information about entities flagged below")]
         public bool ShowDebugInfo { get; set; } = false;
 
 #if SUBNAUTICA

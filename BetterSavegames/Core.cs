@@ -1,6 +1,7 @@
 ﻿using BetterSubnautica.Utility;
 using HarmonyLib;
 using QModManager.API.ModLoading;
+using SMLHelper.V2.Handlers;
 using System.Reflection;
 
 namespace BetterSavegames
@@ -10,7 +11,7 @@ namespace BetterSavegames
     {
         public static Harmony Harmony { get; } = new Harmony("BetterSavegames");
 
-        //public static Settings Settings { get; } = OptionsPanelHandler.Main.RegisterModOptions<Settings>();
+        public static Settings Settings { get; } = OptionsPanelHandler.Main.RegisterModOptions<Settings>();
 
         [QModPrePatch]
         public static void PrePatch() => HarmonyUtility.PrePatchAll(Harmony, Assembly.GetExecutingAssembly());

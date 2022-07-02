@@ -2,6 +2,7 @@
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace BetterGraphics.Patches
 {
@@ -27,12 +28,40 @@ namespace BetterGraphics.Patches
     }
 
     [HarmonyPatch(typeof(uGUI_TabbedControlsPanel))]
-    [HarmonyPatch(nameof(uGUI_TabbedControlsPanel.AddToggleOption))]
+#if SUBNAUTICA
+    // AddToggleOption(int tabIndex, string label, bool value, UnityAction<bool> callback = null)
+    [HarmonyPatch(nameof(uGUI_TabbedControlsPanel.AddToggleOption), new[] { typeof(int), typeof(string), typeof(bool), typeof(UnityAction<bool>) })]
     class uGUI_TabbedControlsPanelAddToggleOptionPatch
     {
-        static bool Prefix(int tabIndex, string label, bool value, UnityAction<bool> callback = null)
+        static void Postfix(Toggle __result, int tabIndex, string label, bool value, UnityAction<bool> callback = null)
         {
-            return !(label == "Fullscreen" && tabIndex == uGUIUtility.GeneralTabIndex);
+#elif BELOWZERO
+    // AddToggleOption(int tabIndex, string label, bool value, UnityAction<bool> callback = null, string tooltip = null)
+    [HarmonyPatch(nameof(uGUI_TabbedControlsPanel.AddToggleOption), new[] { typeof(int), typeof(string), typeof(bool), typeof(UnityAction<bool>), typeof(string) })]
+    class uGUI_TabbedControlsPanelAddToggleOptionPatch
+    {
+        static void Postfix(Toggle __result, int tabIndex, string label, bool value, UnityAction<bool> callback = null, string tooltip = null)
+        {
+#endif
+            if ((label == "Fullscreen" || label == "Vsync") && tabIndex == uGUIUtility.GeneralTabIndex)
+            {
+                __result.transform.parent.gameObject.SetActive(false);
+            }
         }
     }
+
+#if BELOWZERO
+    [HarmonyPatch(typeof(uGUI_TabbedControlsPanel))]
+    [HarmonyPatch(nameof(uGUI_TabbedControlsPanel.AddSliderOption), new[] { typeof(int), typeof(string), typeof(float), typeof(float), typeof(float), typeof(float), typeof(float), typeof(UnityAction<float>), typeof(SliderLabelMode), typeof(string) })]
+    class uGUI_TabbedControlsPanelAddSliderOptionPatch
+    {
+        static void Postfix(GameObject __result, int tabIndex, string label, float value, float minValue, float maxValue, float defaultValue, float step, UnityAction<float> callback, SliderLabelMode labelMode, string floatFormat)
+        {
+            if (label == "FPSCap" && tabIndex == uGUIUtility.GeneralTabIndex)
+            {
+                __result.SetActive(false);
+            }
+        }
+    }
+#endif
 }

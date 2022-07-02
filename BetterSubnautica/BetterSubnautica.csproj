@@ -122,6 +122,7 @@
     <Compile Include="Enums\LightsType.cs" />
     <Compile Include="Extensions\ComponentExtensions.cs" />
     <Compile Include="Extensions\CyclopsExternalCamsExtensions.cs" />
+    <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\PatchClassProcessorExtensions.cs" />
     <Compile Include="Extensions\SeaTruckSegmentExtensions.cs" />
     <Compile Include="Extensions\VehicleExtensions.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Utility\DebuggerUtility.cs" />
     <Compile Include="Utility\GraphicsUtility.cs" />
     <Compile Include="Utility\HarmonyUtility.cs" />
+    <Compile Include="Utility\InventoryUtility.cs" />
     <Compile Include="Utility\KeyCodeUtility.cs" />
     <Compile Include="Utility\PDAUtility.cs" />
     <Compile Include="Utility\uGUIExtensions.cs" />

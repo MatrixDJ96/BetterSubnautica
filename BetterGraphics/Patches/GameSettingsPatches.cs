@@ -13,13 +13,20 @@ namespace BetterGraphics.Patches
             var resolutionWidth = Screen.width;
             var resolutionHeight = Screen.height;
             var fullScreenMode = Screen.fullScreenMode;
+            var vSyncCount = QualitySettings.vSyncCount;
+            var framerateLimit = Application.targetFrameRate;
             var anisotropicFiltering = QualitySettings.anisotropicFiltering;
             var shadows = QualitySettings.shadows;
             var shadowDistance = QualitySettings.shadowDistance;
             var shadowResolution = QualitySettings.shadowResolution;
 
-            Screen.SetResolution(Core.Settings.ResolutionWidth, Core.Settings.ResolutionHeight, Core.Settings.GetFixedFullScreenMode());
+            if (resolutionWidth != Core.Settings.ResolutionWidth || resolutionHeight != Core.Settings.ResolutionHeight || fullScreenMode != Core.Settings.GetFixedFullScreenMode())
+            {
+                Screen.SetResolution(Core.Settings.ResolutionWidth, Core.Settings.ResolutionHeight, Core.Settings.GetFixedFullScreenMode());
+            }
 
+            QualitySettings.vSyncCount = Core.Settings.GetFixedVSyncCount();
+            Application.targetFrameRate = Core.Settings.GetFixedFramerateCount();
             QualitySettings.anisotropicFiltering = Core.Settings.AnisotropicFiltering;
             QualitySettings.shadows = Core.Settings.ShadowQuality;
             QualitySettings.shadowDistance = Core.Settings.ShadowDistance;
@@ -32,9 +39,19 @@ namespace BetterGraphics.Patches
                 DebuggerUtility.ShowWarning("Resolution: " + resolutionWidth + "x" + resolutionHeight + " -> " + Screen.width + "x" + Screen.height);
             }
 
-            if (resolutionWidth != Screen.width || resolutionHeight != Screen.height || fullScreenMode != Screen.fullScreenMode)
+            if (fullScreenMode != Screen.fullScreenMode)
             {
                 DebuggerUtility.ShowWarning("FullScreen Mode: " + fullScreenMode + " -> " + Screen.fullScreenMode);
+            }
+
+            if (vSyncCount != QualitySettings.vSyncCount)
+            {
+                DebuggerUtility.ShowWarning("VSync: " + vSyncCount + " -> " + QualitySettings.vSyncCount);
+            }
+
+            if (framerateLimit != Application.targetFrameRate)
+            {
+                DebuggerUtility.ShowWarning("Framerate: " + framerateLimit + " -> " + Application.targetFrameRate);
             }
 
             if (anisotropicFiltering != QualitySettings.anisotropicFiltering)
