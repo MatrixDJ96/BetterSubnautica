@@ -1,4 +1,3 @@
-﻿using BetterSubnautica.Extensions;
 using System.Collections;
 using UnityEngine;
 
@@ -6,9 +5,9 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public class ExosuitToggleLightsController : AbstractToggleLightsController<Exosuit>
     {
-        private EnergyInterface energyInterface = null;
+        public override bool MandatoryToggleLights { get; } = false;
 
-        protected override bool KeyDown => Input.GetKeyDown(Core.ExosuitSettings.LightsButtonToggle);
+        public override bool KeyDown => Input.GetKeyDown(Core.ExosuitSettings.LightsButtonToggle);
 
         public override float EnergyConsumption => Core.ExosuitSettings.LightsConsumption;
 
@@ -26,46 +25,20 @@ namespace BetterLights.MonoBehaviours.ToggleLights
         {
             var request = CraftData.GetPrefabForTechTypeAsync(TechType.Seamoth);
             yield return request;
-            GameObject gameObject = request.GetResult();
+            SeaMoth seamoth = request.GetResult().GetComponent<SeaMoth>();
 
-            if (gameObject.GetComponent<SeaMoth>() is SeaMoth seamoth)
-            {
-                energyInterface = component.GetEnergyInterface();
-
-                lightsOnSound = seamoth.toggleLights.lightsOnSound;
-                onSound = seamoth.toggleLights.onSound;
-                lightsOffSound = seamoth.toggleLights.lightsOffSound;
-                offSound = seamoth.toggleLights.offSound;
-
-                Start();
-            }
-            else
+            if (seamoth == null || !InitializeToggleLights(seamoth))
             {
                 Destroy(this);
+                yield break;
             }
+
+            Start();
         }
 
-        protected override bool CanToggleLightsActive()
+        public override bool CanToggleLightsActive()
         {
             return base.CanToggleLightsActive() && component.GetPilotingMode();
-        }
-
-        protected override bool IsPowered()
-        {
-            if (energyInterface != null)
-            {
-                return energyInterface.hasCharge;
-            }
-
-            return false;
-        }
-
-        protected override void ConsumeEnergy(float amount)
-        {
-            if (energyInterface != null)
-            {
-                energyInterface.ConsumeEnergy(amount);
-            }
         }
     }
 }

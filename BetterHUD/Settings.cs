@@ -6,6 +6,9 @@ namespace BetterHUD
     [Menu("Better HUD")]
     public class Settings : ConfigFile
     {
+        [Toggle("Show HUD Clock")]
+        public bool ShowHUDClock { get; set; } = true;
+
         [Slider("Time Font Size", 0, 100)]
         public int TimeFontSize { get; set; } = 32;
 

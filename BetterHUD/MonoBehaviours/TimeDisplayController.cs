@@ -93,7 +93,7 @@ namespace BetterHUD.MonoBehaviours
 
         public void OnGUI()
         {
-            if (started)
+            if (Core.Settings.ShowHUDClock && started)
             {
                 GUI.Label(Position, Text, Style);
             }

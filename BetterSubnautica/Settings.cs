@@ -31,6 +31,11 @@ namespace BetterSubnautica
         public bool SeatruckInfo { get; set; } = true;
 #endif
 
+#if BELOWZERO
+        [Toggle("Enable Hoverbike Info")]
+        public bool HoverbikeInfo { get; set; } = true;
+#endif
+
         [Toggle("Enable Flashlight Info")]
         public bool FlashlightInfo { get; set; } = true;
 

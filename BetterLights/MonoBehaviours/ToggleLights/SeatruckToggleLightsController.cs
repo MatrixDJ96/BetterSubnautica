@@ -6,11 +6,13 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public class SeatruckToggleLightsController : AbstractToggleLightsController<SeaTruckSegment>
     {
+        public override bool MandatoryToggleLights { get; } = false;
+        public override bool MandatoryLightsParent { get; } = false;
+
         private SeaTruckLights seaTruckLights = null;
         private SeaTruckMotor seaTruckMotor = null;
-        private PowerRelay powerRelay = null;
 
-        protected override bool KeyDown => Input.GetKeyDown(Core.SeatruckSettings.LightsButtonToggle);
+        public override bool KeyDown => Input.GetKeyDown(Core.SeatruckSettings.LightsButtonToggle);
 
         public override float EnergyConsumption => Core.SeatruckSettings.LightsConsumption;
 
@@ -22,7 +24,6 @@ namespace BetterLights.MonoBehaviours.ToggleLights
             {
                 seaTruckLights = component.gameObject.GetComponent<SeaTruckLights>();
                 seaTruckMotor = component.gameObject.GetComponent<SeaTruckMotor>();
-                powerRelay = component.GetPowerRelay();
 
                 if (!component.IsMainSegment() || seaTruckLights == null || seaTruckLights.floodLight == null || seaTruckMotor == null)
                 {
@@ -36,6 +37,7 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                 offSound = seaTruckLights.offSound;
             }
         }
+
         protected override void Update()
         {
             base.Update();
@@ -44,27 +46,9 @@ namespace BetterLights.MonoBehaviours.ToggleLights
             seaTruckLights.SetSuppressionState(!lightsActive);
         }
 
-        protected override bool CanToggleLightsActive()
+        public override bool CanToggleLightsActive()
         {
             return base.CanToggleLightsActive() && seaTruckMotor.IsPiloted();
-        }
-
-        protected override bool IsPowered()
-        {
-            if (powerRelay != null)
-            {
-                return powerRelay.GetPower() > 0f;
-            }
-
-            return false;
-        }
-
-        protected override void ConsumeEnergy(float amount)
-        {
-            if (powerRelay != null)
-            {
-                powerRelay.ConsumeEnergy(amount, out var _);
-            }
         }
     }
 }

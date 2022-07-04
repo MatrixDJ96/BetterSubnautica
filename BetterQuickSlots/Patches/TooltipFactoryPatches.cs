@@ -1,9 +1,9 @@
 ﻿using BetterQuickSlots.Utility;
+using BetterSubnautica.Utility;
 using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace BetterSubnautica.Patches
 {
@@ -21,7 +21,7 @@ namespace BetterSubnautica.Patches
 
         public static IEnumerator UpdateKeyRangeCoroutine(uGUI_QuickSlots __instance)
         {
-            yield return new WaitUntil(() => __instance.icons != null);
+            yield return CoroutineUtility.WaitUntil(() => __instance.icons != null);
 
             var inputSlotNames = new List<string>();
 

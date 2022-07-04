@@ -61,7 +61,7 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 
         protected override void UpdateSettings()
         {
-            IntensityOffset = Core.ExosuitSettings.VolumetricLightIntensityOffset;
+            IntensityOffset = Core.ExosuitSettings.VolumetricLightsIntensityOffset;
         }
     }
 }

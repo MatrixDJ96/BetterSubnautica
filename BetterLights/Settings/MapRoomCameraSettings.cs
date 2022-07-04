@@ -22,6 +22,6 @@ namespace BetterLights.Settings
         public float LightsIntensityOffset { get; set; } = -0.5f;
 
         [Slider("Vol. Lights Intensity Offset", -5f, 5f, Format = "{0:F2}")]
-        public float VolumetricLightIntensityOffset { get; set; } = -0.2f;
+        public float VolumetricLightsIntensityOffset { get; set; } = -0.2f;
     }
 }

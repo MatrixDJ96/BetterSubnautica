@@ -5,13 +5,13 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public class CyclopsToggleLightsController : AbstractToggleLightsController<SubRoot>
     {
+        public override bool MandatoryLightsParent => false;
+        public override bool MandatoryToggleLights => false;
+
         private CyclopsLightingPanel lightingPanel = null;
         private CyclopsExternalCams externalCams = null;
-        private PowerRelay powerRelay = null;
 
-        public override bool LightsActive => lightsActive = externalCams.GetUsingCameras() || lightingPanel.lightingOn || lightingPanel.floodlightsOn;
-
-        protected override bool KeyDown => false;
+        public override bool KeyDown => false;
 
         public override float EnergyConsumption
         {
@@ -52,6 +52,8 @@ namespace BetterLights.MonoBehaviours.ToggleLights
             }
         }
 
+        public override bool LightsActive => lightsActive = externalCams.GetUsingCameras() || lightingPanel.lightingOn || lightingPanel.floodlightsOn;
+
         protected override void Awake()
         {
             base.Awake();
@@ -60,21 +62,15 @@ namespace BetterLights.MonoBehaviours.ToggleLights
             {
                 lightingPanel = component.gameObject.GetComponentInChildren<CyclopsLightingPanel>();
                 externalCams = component.gameObject.GetComponentInChildren<CyclopsExternalCams>();
-                powerRelay = component.GetPowerRelay();
 
-                if (!component.isCyclops || lightingPanel == null || externalCams == null || powerRelay == null)
+                if (!component.isCyclops || lightingPanel == null || externalCams == null)
                 {
                     Destroy(this);
                 }
             }
         }
 
-        protected override void Start()
-        {
-            SetLightsActive(lightsActive, true);
-        }
-
-        protected override bool CanToggleLightsActive()
+        public override bool CanToggleLightsActive()
         {
             return false;
         }
@@ -88,19 +84,9 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 
             lightingPanel.lightingOn = active;
             lightingPanel.floodlightsOn = active;
-            component.ForceLightingState(active);
             lightingPanel.SetExternalLighting(active);
             lightingPanel.UpdateLightingButtons();
-        }
-
-        protected override bool IsPowered()
-        {
-            return powerRelay.GetPower() > 0f;
-        }
-
-        protected override void ConsumeEnergy(float amount)
-        {
-            powerRelay.ConsumeEnergy(amount, out var _);
+            component.ForceLightingState(active);
         }
     }
 }

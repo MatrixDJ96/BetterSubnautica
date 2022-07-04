@@ -1,26 +1,32 @@
-﻿using BetterSubnautica.Extensions;
+using BetterSubnautica.Components;
+using BetterSubnautica.Extensions;
+using BetterSubnautica.Utility;
 using UnityEngine;
-using GameUtils = Utils;
+using UWE;
 
 namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public abstract class AbstractToggleLightsController<T> : MonoBehaviour, IToggleLightsController where T : Component
     {
+        public virtual bool MandatoryToggleLights { get; } = true;
+        public virtual bool MandatoryLightsParent { get; } = true;
+        public virtual bool MandatoryEnergySource { get; } = true;
+
+        public abstract bool KeyDown { get; }
+        public abstract float EnergyConsumption { get; }
+
         protected T component = null;
-
+        protected global::ToggleLights toggleLights = null;
         protected GameObject lightsParent = null;
-
-        protected bool lightsActive = false;
-        public virtual bool LightsActive => lightsActive;
+        protected IEnergySource energySource = null;
 
         protected FMOD_StudioEventEmitter lightsOnSound = null;
         protected FMOD_StudioEventEmitter lightsOffSound = null;
         protected FMODAsset onSound = null;
         protected FMODAsset offSound = null;
 
-        protected abstract bool KeyDown { get; }
-
-        public abstract float EnergyConsumption { get; }
+        protected bool lightsActive = false;
+        public virtual bool LightsActive => lightsActive;
 
         protected virtual void Awake()
         {
@@ -32,7 +38,9 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                 return;
             }
 
-            lightsParent = component.GetLightsParent();
+            InitializeToggleLights(component);
+            InitializeLightsParent(component);
+            InitializeEnergySource(component);
         }
 
         protected virtual void Start()
@@ -52,14 +60,100 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                 }
 
                 FixLightsParent();
+                FixToggleLights();
             }
         }
 
-        private void FixLightsParent()
+        protected virtual void OnDestroy()
+        {
+            DebuggerUtility.ShowMessage($"Component: {component != null} | ToggleLights: {toggleLights != null} | LightsParent: {lightsParent != null} | EnergySource: {energySource != null}", $"({GetInstanceID()}) {GetType().Name}.Destroy");
+        }
+
+        protected virtual bool InitializeToggleLights(Component component = null)
+        {
+            if (component != null)
+            {
+                toggleLights = component.GetToggleLights();
+
+                if (toggleLights != null)
+                {
+                    lightsOnSound = toggleLights.lightsOnSound;
+                    onSound = toggleLights.onSound;
+                    lightsOffSound = toggleLights.lightsOffSound;
+                    offSound = toggleLights.offSound;
+
+                    toggleLights.energyPerSecond = 0f;
+
+                    return true;
+                }
+            }
+
+            if (MandatoryToggleLights)
+            {
+                Destroy(this);
+            }
+
+            return false;
+        }
+
+        protected virtual bool InitializeLightsParent(Component component = null)
+        {
+            if (component != null)
+            {
+                lightsParent = component.GetLightsParent();
+
+                if (lightsParent == null && toggleLights != null)
+                {
+                    lightsParent = toggleLights.lightsParent;
+                }
+
+                if (lightsParent != null)
+                {
+                    return true;
+                }
+            }
+
+            if (MandatoryLightsParent)
+            {
+                Destroy(this);
+            }
+
+            return false;
+        }
+
+        protected virtual bool InitializeEnergySource(Component component = null)
+        {
+            if (component != null)
+            {
+                energySource = component.GetEnergySource();
+
+                if (energySource != null)
+                {
+                    return true;
+                }
+            }
+
+            if (MandatoryEnergySource)
+            {
+                Destroy(this);
+            }
+
+            return false;
+        }
+
+        protected virtual void FixLightsParent()
         {
             if (lightsParent != null)
             {
-                lightsParent.SetActive(lightsActive);
+                lightsParent.SetActive(LightsActive);
+            }
+        }
+
+        protected virtual void FixToggleLights()
+        {
+            if (toggleLights != null)
+            {
+                toggleLights.lightsActive = LightsActive;
             }
         }
 
@@ -75,9 +169,9 @@ namespace BetterLights.MonoBehaviours.ToggleLights
             }
         }
 
-        protected virtual bool CanToggleLightsActive()
+        public virtual bool CanToggleLightsActive()
         {
-            return KeyDown && !Player.main.GetPDA().isInUse;
+            return KeyDown && !Player.main.GetPDA().isInUse && FreezeTime.freezers.Count == 0;
         }
 
         public virtual void SetLightsActive(bool active, bool force = false)
@@ -95,22 +189,22 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                     {
                         if ((bool)lightsOnSound)
                         {
-                            GameUtils.PlayEnvSound(lightsOnSound, lightsOnSound.gameObject.transform.position);
+                            Utils.PlayEnvSound(lightsOnSound, lightsOnSound.gameObject.transform.position);
                         }
                         if ((bool)onSound)
                         {
-                            GameUtils.PlayFMODAsset(onSound, transform);
+                            Utils.PlayFMODAsset(onSound, transform);
                         }
                     }
                     else
                     {
                         if ((bool)lightsOffSound)
                         {
-                            GameUtils.PlayEnvSound(lightsOffSound, lightsOffSound.gameObject.transform.position);
+                            Utils.PlayEnvSound(lightsOffSound, lightsOffSound.gameObject.transform.position);
                         }
                         if ((bool)offSound)
                         {
-                            GameUtils.PlayFMODAsset(offSound, transform);
+                            Utils.PlayFMODAsset(offSound, transform);
                         }
                     }
                 }
@@ -121,13 +215,27 @@ namespace BetterLights.MonoBehaviours.ToggleLights
             FixLightsParent();
         }
 
-        public void ToggleLightsActive()
+        public virtual void ToggleLightsActive()
         {
             SetLightsActive(!LightsActive);
         }
 
-        protected abstract bool IsPowered();
+        protected virtual bool IsPowered()
+        {
+            if (energySource != null)
+            {
+                return energySource.HasEnergy();
+            }
 
-        protected abstract void ConsumeEnergy(float amount);
+            return false;
+        }
+
+        protected virtual void ConsumeEnergy(float amount)
+        {
+            if (energySource != null)
+            {
+                energySource.ConsumeEnergy(amount);
+            }
+        }
     }
 }

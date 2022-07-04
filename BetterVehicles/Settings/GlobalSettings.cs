@@ -7,7 +7,10 @@ namespace BetterVehicles.Settings
     [Menu("Better Vehicles - Global")]
     public class GlobalSettings : ConfigFile
     {
-        public GlobalSettings() : base("config_vehicles") { }
+        public GlobalSettings() : base("config_global") { }
+
+        [Toggle("Linked Storage", Tooltip = "Link personal inventory with vehicle storage")]
+        public bool LinkedStorage { get; set; } = false;
 
         [Keybind("Upgrade Modules Button")]
         public KeyCode UpgradeModules { get; set; } = KeyCode.U;

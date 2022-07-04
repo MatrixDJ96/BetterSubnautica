@@ -61,7 +61,7 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 
         protected override void UpdateSettings()
         {
-            IntensityOffset = Core.MapRoomCameraSettings.VolumetricLightIntensityOffset;
+            IntensityOffset = Core.MapRoomCameraSettings.VolumetricLightsIntensityOffset;
         }
     }
 }

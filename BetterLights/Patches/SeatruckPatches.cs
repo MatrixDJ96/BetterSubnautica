@@ -42,9 +42,9 @@ namespace BetterLights.Patches
         {
             if (SeaTruckSegment.GetHead(__instance) is SeaTruckSegment seaTruck)
             {
-                if (seaTruck.gameObject.GetComponent<SeaTruckLights>() is SeaTruckLights seaTruckLights && seaTruckLights.dimFloodlightsOnEnter != null)
+                if (__instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
                 {
-                    var volumetricLight = new List<VFXVolumetricLight>(seaTruckLights.dimFloodlightsOnEnter).FindAll(x => x != null);
+                    var volumetricLight = new List<VFXVolumetricLight>(volumetricLightsController.VolumetricLights).FindAll(x => x != null);
 
                     if (state)
                     {

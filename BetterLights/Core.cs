@@ -22,6 +22,9 @@ namespace BetterLights
 #elif BELOWZERO
         public static SeatruckSettings SeatruckSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<SeatruckSettings>();
 #endif
+#if BELOWZERO          
+        public static HoverbikeSettings HoverbikeSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<HoverbikeSettings>();
+#endif
         public static ExosuitSettings ExosuitSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<ExosuitSettings>();
 #if SUBNAUTICA
         public static CyclopsSettings CyclopsSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<CyclopsSettings>();

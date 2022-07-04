@@ -51,9 +51,9 @@ namespace BetterLights.Patches
     {
         static void Postfix(SubRoot __instance, Player player)
         {
-            if (__instance.isCyclops)
+            if (__instance.isCyclops && __instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
             {
-                foreach (var volumetricLight in __instance.dimFloodlightsOnEnter)
+                foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
                 {
                     if (volumetricLight != null)
                     {
@@ -70,9 +70,9 @@ namespace BetterLights.Patches
     {
         static void Postfix(SubRoot __instance, Player player)
         {
-            if (__instance.isCyclops)
+            if (__instance.isCyclops && __instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
             {
-                foreach (var volumetricLight in __instance.dimFloodlightsOnEnter)
+                foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
                 {
                     if (volumetricLight != null)
                     {

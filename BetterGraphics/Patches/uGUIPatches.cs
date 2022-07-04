@@ -8,7 +8,7 @@ namespace BetterGraphics.Patches
 {
     [HarmonyPatch(typeof(uGUI_OptionsPanel))]
     [HarmonyPatch(nameof(uGUI_OptionsPanel.OnResolutionChanged))]
-    class uGUIPatchesPatch
+    class uGUIOptionsPanelOnResolutionChangedPatch
     {
 #if SUBNAUTICA
         static void Postfix(uGUI_OptionsPanel __instance, int currentIndex)
@@ -66,7 +66,7 @@ namespace BetterGraphics.Patches
 
     [HarmonyPatch(typeof(uGUI_OptionsPanel))]
     [HarmonyPatch(nameof(uGUI_OptionsPanel.OnVSyncChanged))]
-    class uGUI_OptionsPanelOptionPatch
+    class uGUIOptionsPanelOnVSyncChangedPatch
     {
         static void Postfix(uGUI_OptionsPanel __instance)
         {

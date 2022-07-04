@@ -10,20 +10,14 @@ namespace BetterVehicles.Patches
     {
         static void Prefix(PDA __instance)
         {
-            if (Player.main.GetVehicle() is Vehicle vehicle && Inventory.main.GetUsedStorageCount() == 0)
+            if (Core.GlobalSettings.LinkedStorage && Player.main.GetVehicle() is Vehicle vehicle && Inventory.main.GetUsedStorageCount() == 0)
             {
                 IItemsContainer[] storageContainers = Array.Empty<IItemsContainer>();
 
-                if (vehicle is Exosuit)
+                if (vehicle.gameObject.GetComponent<AbstractVehicleStorageController>()?.GetVehicleStorage() is IItemsContainer[] vehicleStorage)
                 {
-                    storageContainers = vehicle.gameObject.GetComponent<ExosuitStorageController>()?.GetDefaultStorage();
+                    storageContainers = vehicleStorage;
                 }
-#if SUBNAUTICA
-                else if (vehicle is SeaMoth)
-                {
-                    storageContainers = vehicle.gameObject.GetComponent<SeamothStorageController>()?.GetVehicleStorage();
-                }
-#endif
 
                 foreach (var storageContainer in storageContainers)
                 {

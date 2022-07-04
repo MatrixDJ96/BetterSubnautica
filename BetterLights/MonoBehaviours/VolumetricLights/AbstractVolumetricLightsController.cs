@@ -29,9 +29,12 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 
         public void OnDestroy()
         {
-            foreach (var item in volumetricLights)
+            if (volumetricLights != null)
             {
-                VolumetricLightsContainer.Dict.Remove(item.GetInstanceID());
+                foreach (var item in volumetricLights)
+                {
+                    VolumetricLightsContainer.Dict.Remove(item.GetInstanceID());
+                }
             }
         }
 
@@ -48,9 +51,12 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 
         protected virtual void Start()
         {
-            foreach (var volumetricLight in volumetricLights)
+            if (volumetricLights != null)
             {
-                VolumetricLightsContainer.Dict[volumetricLight.GetInstanceID()] = this;
+                foreach (var volumetricLight in volumetricLights)
+                {
+                    VolumetricLightsContainer.Dict[volumetricLight.GetInstanceID()] = this;
+                }
             }
         }
 
@@ -61,7 +67,7 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 
         public void UpdateMaterial(VFXVolumetricLight volumetricLight, bool forceUpdate)
         {
-            if (volumetricLights.Contains(volumetricLight))
+            if (volumetricLights != null && volumetricLights.Contains(volumetricLight))
             {
                 volumetricLight.UpdateMaterial(IntensityOffset, forceUpdate);
             }

@@ -1,4 +1,5 @@
 using BetterSubnautica.Extensions;
+using BetterSubnautica.Utility;
 using UnityEngine;
 
 namespace BetterLights.MonoBehaviours.Lights
@@ -72,6 +73,12 @@ namespace BetterLights.MonoBehaviours.Lights
             }
 
             var lightsParent = component.GetLightsParent();
+            var toggleLights = component.GetToggleLights();
+
+            if (lightsParent == null && toggleLights != null)
+            {
+                lightsParent = toggleLights.lightsParent;
+            }
 
             if (lightsParent != null)
             {
@@ -110,6 +117,11 @@ namespace BetterLights.MonoBehaviours.Lights
         protected virtual void LateUpdate()
         {
             UpdateSettings();
+        }
+
+        protected virtual void OnDestroy()
+        {
+            DebuggerUtility.ShowMessage($"Component: {component != null} | Lights: {lights != null}", $"({GetInstanceID()}) {GetType().Name}.Destroy");
         }
 
         public virtual void UpdateColor()

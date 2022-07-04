@@ -114,6 +114,7 @@
     <Compile Include="MonoBehaviours\Lights\ExosuitLightsController.cs" />
     <Compile Include="MonoBehaviours\Lights\FlashlightHelmetLightsController.cs" />
     <Compile Include="MonoBehaviours\Lights\FlashlightLightsController.cs" />
+    <Compile Include="MonoBehaviours\Lights\HoverbikeLightsController.cs" />
     <Compile Include="MonoBehaviours\Lights\ILightsController.cs" />
     <Compile Include="MonoBehaviours\Lights\MapRoomCameraLightsController.cs" />
     <Compile Include="MonoBehaviours\Lights\SeaglideLightsController.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="MonoBehaviours\ToggleLights\ExosuitToggleLightsController.cs" />
     <Compile Include="MonoBehaviours\ToggleLights\FlashlightHelmetToggleLightsController.cs" />
     <Compile Include="MonoBehaviours\ToggleLights\FlashlightToggleLightsController.cs" />
+    <Compile Include="MonoBehaviours\ToggleLights\HoverbikeToggleLightsController.cs" />
     <Compile Include="MonoBehaviours\ToggleLights\IToggleLightsController.cs" />
     <Compile Include="MonoBehaviours\ToggleLights\MapRoomCameraToggleLightsController.cs" />
     <Compile Include="MonoBehaviours\ToggleLights\SeaglideToggleLightsController.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="MonoBehaviours\VolumetricLights\AbstractVolumetricLightsController.cs" />
     <Compile Include="MonoBehaviours\VolumetricLights\CyclopsVolumetricLightsController.cs" />
     <Compile Include="MonoBehaviours\VolumetricLights\ExosuitVolumetricLightsController.cs" />
+    <Compile Include="MonoBehaviours\VolumetricLights\HoverbikeVolumetricLightsController.cs" />
     <Compile Include="MonoBehaviours\VolumetricLights\IVolumetricLightsController.cs" />
     <Compile Include="MonoBehaviours\VolumetricLights\MapRoomCameraVolumetricLightsController.cs" />
     <Compile Include="MonoBehaviours\VolumetricLights\SeamothVolumetricLightsController.cs" />
@@ -141,6 +144,7 @@
     <Compile Include="Patches\CyclopsPatches.cs" />
     <Compile Include="Patches\ExosuitPatches.cs" />
     <Compile Include="Patches\FlashlightPatches.cs" />
+    <Compile Include="Patches\HoverbikePatches.cs" />
     <Compile Include="Patches\MapRoomCameraPatches.cs" />
     <Compile Include="Patches\SeaglidePatches.cs" />
     <Compile Include="Patches\SeamothPatches.cs" />
@@ -154,6 +158,7 @@
     <Compile Include="Settings\ExosuitSettings.cs" />
     <Compile Include="Settings\FlashlightHelmetSettings.cs" />
     <Compile Include="Settings\FlashlightSettings.cs" />
+    <Compile Include="Settings\HoverbikeSettings.cs" />
     <Compile Include="Settings\MapRoomCameraSettings.cs" />
     <Compile Include="Settings\SeaglideSettings.cs" />
     <Compile Include="Settings\SeamothSettings.cs" />

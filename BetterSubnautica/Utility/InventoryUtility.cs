@@ -18,7 +18,7 @@
                 var oxygen = !GameModeUtils.IsOptionActive(mode, GameModeOption.NoOxygen);
                 var cold = !GameModeUtils.IsOptionActive(mode, GameModeOption.NoCold);
 
-                if (pickupable != null && pickupable.GetComponent<Eatable>() is Eatable eatable)
+                if (pickupable != null && pickupable.GetComponentInParent<Planter>() == null && pickupable.GetComponent<Eatable>() is Eatable eatable)
                 {
                     if (survival || (oxygen && techType == TechType.Bladderfish) || (cold && eatable.coldMeterValue < 0f))
                     {
