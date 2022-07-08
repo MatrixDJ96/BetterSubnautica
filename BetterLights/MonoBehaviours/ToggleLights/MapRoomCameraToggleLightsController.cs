@@ -5,9 +5,9 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public class MapRoomCameraToggleLightsController : AbstractToggleLightsController<MapRoomCamera>
     {
-        public override bool KeyDown => Input.GetKeyDown(Core.MapRoomCameraSettings.LightsButtonToggle);
+        protected override bool KeyDown => Input.GetKeyDown(Core.MapRoomCameraSettings.LightsButtonToggle);
 
-        public override float EnergyConsumption => Core.MapRoomCameraSettings.LightsConsumption;
+        protected override float EnergyConsumption => Core.MapRoomCameraSettings.LightsConsumption;
 
         protected override void Awake()
         {

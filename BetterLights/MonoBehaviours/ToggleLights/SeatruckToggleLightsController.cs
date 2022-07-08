@@ -6,15 +6,15 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public class SeatruckToggleLightsController : AbstractToggleLightsController<SeaTruckSegment>
     {
-        public override bool MandatoryToggleLights { get; } = false;
-        public override bool MandatoryLightsParent { get; } = false;
+        protected override bool MandatoryToggleLights { get; } = false;
+        protected override bool MandatoryLightsParent { get; } = false;
 
         private SeaTruckLights seaTruckLights = null;
         private SeaTruckMotor seaTruckMotor = null;
 
-        public override bool KeyDown => Input.GetKeyDown(Core.SeatruckSettings.LightsButtonToggle);
+        protected override bool KeyDown => Input.GetKeyDown(Core.SeatruckSettings.LightsButtonToggle);
 
-        public override float EnergyConsumption => Core.SeatruckSettings.LightsConsumption;
+        protected override float EnergyConsumption => Core.SeatruckSettings.LightsConsumption;
 
         protected override void Awake()
         {
@@ -35,6 +35,8 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 
                 onSound = seaTruckLights.onSound;
                 offSound = seaTruckLights.offSound;
+
+                SeatruckLightsContainer.Instance.Dict[seaTruckLights.GetInstanceID()] = this;
             }
         }
 

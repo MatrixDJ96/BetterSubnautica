@@ -31,12 +31,7 @@ namespace BetterSubnautica.Utility
         {
             var stopwatch = Stopwatch.StartNew();
 
-            yield return WaitUntil(() => stopwatch.Elapsed.Milliseconds >= milliseconds);
-
-            if (action != null)
-            {
-                action.Invoke();
-            }
+            yield return WaitUntil(() => stopwatch.Elapsed.Milliseconds >= milliseconds, action);
         }
     }
 }

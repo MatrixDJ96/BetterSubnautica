@@ -1,6 +1,6 @@
-﻿using BetterLights.MonoBehaviours.ToggleLights;
+﻿#if SUBNAUTICA
+using BetterLights.MonoBehaviours.ToggleLights;
 using HarmonyLib;
-using static Vehicle;
 
 namespace BetterLights.Patches
 {
@@ -8,7 +8,7 @@ namespace BetterLights.Patches
     [HarmonyPatch(nameof(Vehicle.OnDockedChanged))]
     class VehicleOnDockedChangedPatch
     {
-        static void Prefix(Vehicle __instance, bool docked, DockType dockType)
+        static void Prefix(Vehicle __instance, bool docked, Vehicle.DockType dockType)
         {
             if (__instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController toggleLightsController)
             {
@@ -20,3 +20,4 @@ namespace BetterLights.Patches
         }
     }
 }
+#endif

@@ -9,8 +9,18 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
     {
         protected T component = null;
 
-        protected VFXVolumetricLight[] volumetricLights = Array.Empty<VFXVolumetricLight>();
-        public virtual VFXVolumetricLight[] VolumetricLights => volumetricLights;
+        protected VFXVolumetricLight[] volumetricLights = null;
+        public virtual VFXVolumetricLight[] VolumetricLights
+        {
+            get
+            {
+                if (volumetricLights == null)
+                {
+                    volumetricLights = Array.Empty<VFXVolumetricLight>();
+                }
+                return volumetricLights;
+            }
+        }
 
         protected float intensityOffset = 0f;
         public float IntensityOffset
@@ -25,16 +35,11 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
             }
         }
 
-        public float UpdateInterval { get; set; } = 60f;
-
         public void OnDestroy()
         {
-            if (volumetricLights != null)
+            foreach (var item in VolumetricLights)
             {
-                foreach (var item in volumetricLights)
-                {
-                    VolumetricLightsContainer.Dict.Remove(item.GetInstanceID());
-                }
+                VolumetricLightsContainer.Instance.Dict.Remove(item.GetInstanceID());
             }
         }
 
@@ -51,12 +56,9 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 
         protected virtual void Start()
         {
-            if (volumetricLights != null)
+            foreach (var volumetricLight in VolumetricLights)
             {
-                foreach (var volumetricLight in volumetricLights)
-                {
-                    VolumetricLightsContainer.Dict[volumetricLight.GetInstanceID()] = this;
-                }
+                VolumetricLightsContainer.Instance.Dict[volumetricLight.GetInstanceID()] = this;
             }
         }
 
@@ -67,7 +69,7 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 
         public void UpdateMaterial(VFXVolumetricLight volumetricLight, bool forceUpdate)
         {
-            if (volumetricLights != null && volumetricLights.Contains(volumetricLight))
+            if (VolumetricLights.Contains(volumetricLight))
             {
                 volumetricLight.UpdateMaterial(IntensityOffset, forceUpdate);
             }

@@ -19,22 +19,25 @@ namespace BetterPDA.Patches
                     var inventory = Inventory.main;
                     var survival = Player.main.GetComponent<Survival>();
 
-                    switch (itemAction)
+                    if (pickupable != null && inventory != null && survival != null)
                     {
-                        case ItemAction.Eat:
-                            if (survival.Eat(pickupable.gameObject))
-                            {
-                                inventory.TryRemoveItem(pickupable);
-                                Object.Destroy(pickupable.gameObject);
-                            }
-                            break;
-                        case ItemAction.Use:
-                            if (survival.Use(pickupable.gameObject, inventory))
-                            {
-                                inventory.TryRemoveItem(pickupable);
-                                Object.Destroy(pickupable.gameObject);
-                            }
-                            break;
+                        switch (itemAction)
+                        {
+                            case ItemAction.Eat:
+                                if (survival.Eat(pickupable.gameObject))
+                                {
+                                    inventory.TryRemoveItem(pickupable);
+                                    Object.Destroy(pickupable.gameObject);
+                                }
+                                break;
+                            case ItemAction.Use:
+                                if (survival.Use(pickupable.gameObject, inventory))
+                                {
+                                    inventory.TryRemoveItem(pickupable);
+                                    Object.Destroy(pickupable.gameObject);
+                                }
+                                break;
+                        }
                     }
                 }
             }

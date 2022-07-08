@@ -11,10 +11,15 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 
             if (component != null)
             {
-                if (component.GetToggleLights() is global::ToggleLights toggleLights && toggleLights.lightsParent != null)
+                var toggleLights = component.GetToggleLights();
+
+                if (toggleLights == null || toggleLights.lightsParent == null)
                 {
-                    volumetricLights = toggleLights.lightsParent.GetComponentsInChildren<VFXVolumetricLight>();
+                    Destroy(this);
+                    return;
                 }
+
+                volumetricLights = toggleLights.lightsParent.GetComponentsInChildren<VFXVolumetricLight>();
             }
         }
 

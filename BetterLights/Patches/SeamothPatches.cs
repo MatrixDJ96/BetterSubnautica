@@ -37,7 +37,7 @@ namespace BetterLights.Patches
         {
             if (__instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController toggleLightsController)
             {
-                toggleLightsController.SetLightsActive(true);
+                toggleLightsController.SetLightsActive(true, true);
             }
         }
     }

@@ -34,50 +34,29 @@ namespace BetterLights.Patches
 
     [HarmonyPatch(typeof(CyclopsLightingPanel))]
     [HarmonyPatch(nameof(CyclopsLightingPanel.SubConstructionComplete))]
-    class CyclopsSubConstructionCompletePatch
+    class CyclopsLightingPanelSubConstructionCompletePatch
     {
         static void Postfix(CyclopsLightingPanel __instance)
         {
-            if (__instance.gameObject.GetComponentInParent<IToggleLightsController>() is IToggleLightsController toggleLightsController)
+            if (__instance.gameObject.GetComponentInParent<IToggleLightsController>() is IToggleLightsController controller)
             {
-                toggleLightsController.SetLightsActive(true);
+                controller.SetLightsActive(true, true);
             }
         }
     }
 
-    [HarmonyPatch(typeof(SubRoot))]
-    [HarmonyPatch(nameof(SubRoot.OnPlayerEntered))]
-    class CyclopsOnPlayerEnteredPatch
+    [HarmonyPatch(typeof(CyclopsLightingPanel))]
+    [HarmonyPatch(nameof(CyclopsLightingPanel.ToggleFloodlights))]
+    class CyclopsLightingPanelToggleFloodlightsPatch
     {
-        static void Postfix(SubRoot __instance, Player player)
+        static void Postfix(CyclopsLightingPanel __instance)
         {
-            if (__instance.isCyclops && __instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
+            // Disable volumetric lights if external lights enabled and player inside cyclops
+            if (__instance.floodlightsOn && __instance.cyclopsRoot != null && __instance.cyclopsRoot.isCyclops && __instance.cyclopsRoot == Player.main.currentSub && __instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is IVolumetricLightsController controller)
             {
-                foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
+                foreach (var volumetricLight in controller.VolumetricLights)
                 {
-                    if (volumetricLight != null)
-                    {
-                        volumetricLight.DisableVolume();
-                    }
-                }
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(SubRoot))]
-    [HarmonyPatch(nameof(SubRoot.OnPlayerExited))]
-    class CyclopsOnPlayerExitedPatch
-    {
-        static void Postfix(SubRoot __instance, Player player)
-        {
-            if (__instance.isCyclops && __instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
-            {
-                foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
-                {
-                    if (volumetricLight != null)
-                    {
-                        volumetricLight.RestoreVolume();
-                    }
+                    volumetricLight.DisableVolume();
                 }
             }
         }

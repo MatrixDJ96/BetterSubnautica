@@ -114,6 +114,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
             {
                 DebuggerUtility.ShowMessage($"{LightsActive:0.##} ({LightsType})", $"({GetInstanceID()}) {GetType().Name}.LightsStatus");
             }
+
             DebuggerUtility.ShowMessage($"{EnergyPerSecond:+0.####;-0.####;0.####}", $"({GetInstanceID()}) {GetType().Name}.EnergyPerSecond");
             DebuggerUtility.ShowMessage($"{Charge:0.##}/{Capacity:0.##} ({PercentCharge:0.##}%)", $"({GetInstanceID()}) {GetType().Name}.AvailableEnergy");
             DebuggerUtility.ShowMessage("", $"({GetInstanceID()}) {GetType().Name}.ZZZ");
@@ -123,11 +124,12 @@ namespace BetterSubnautica.MonoBehaviours.Debug
         {
             if (ShowLights)
             {
-                DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.LightsStatus");
+                DebuggerUtility.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.LightsStatus");
             }
-            DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.EnergyPerSecond");
-            DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.AvailableEnergy");
-            DebuggerController.Instance.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.ZZZ");
+
+            DebuggerUtility.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.EnergyPerSecond");
+            DebuggerUtility.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.AvailableEnergy");
+            DebuggerUtility.RemoveMessage($"({GetInstanceID()}) {GetType().Name}.ZZZ");
         }
     }
 }

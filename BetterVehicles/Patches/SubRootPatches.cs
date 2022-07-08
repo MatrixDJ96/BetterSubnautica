@@ -1,7 +1,18 @@
-﻿using HarmonyLib;
+﻿using BetterVehicles.MonoBehaviours;
+using HarmonyLib;
 
 namespace BetterVehicles.Patches
 {
+    [HarmonyPatch(typeof(SubRoot))]
+    [HarmonyPatch(nameof(SubRoot.Awake))]
+    class SubRootAwakePatch
+    {
+        static void Postfix(SubRoot __instance)
+        {
+            SubRootContainer.Instance.Dict[__instance.GetInstanceID()] = __instance;
+        }
+    }
+
     [HarmonyPatch(typeof(SubRoot))]
     [HarmonyPatch(nameof(SubRoot.Start))]
     class SubRootStartPatch
@@ -10,7 +21,7 @@ namespace BetterVehicles.Patches
         {
             if (!__instance.isCyclops)
             {
-                __instance.vehicleRepairUpgrade = true;
+                __instance.vehicleRepairUpgrade = Core.GlobalSettings.AutomaticVehicleRepair;
             }
         }
     }
@@ -23,7 +34,7 @@ namespace BetterVehicles.Patches
         {
             if (!__instance.isCyclops)
             {
-                __instance.vehicleRepairUpgrade = true;
+                __instance.vehicleRepairUpgrade = Core.GlobalSettings.AutomaticVehicleRepair;
             }
         }
     }

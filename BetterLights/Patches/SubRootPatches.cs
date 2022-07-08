@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿#if SUBNAUTICA
+using HarmonyLib;
 
 namespace BetterLights.Patches
 {
@@ -18,3 +19,4 @@ namespace BetterLights.Patches
         }
     }
 }
+#endif

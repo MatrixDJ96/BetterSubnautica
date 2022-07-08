@@ -2,10 +2,10 @@
   "Id": "BetterHUD",
   "DisplayName": "Better HUD",
   "Author": "MatrixDJ96",
-  "Version": "0.0.3.4",
+  "Version": "0.0.3.5",
   "VersionDependencies": {
     "SMLHelper": "2.13.0",
-    "BetterSubnautica": "0.0.3.4"
+    "BetterSubnautica": "0.0.3.5"
   },
   "Enable": true,
   "Game": "Both",

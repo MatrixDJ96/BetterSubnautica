@@ -40,10 +40,7 @@ namespace BetterLights.Patches
             {
                 foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
                 {
-                    if (volumetricLight != null)
-                    {
-                        volumetricLight.DisableVolume();
-                    }
+                    volumetricLight.DisableVolume();
                 }
             }
         }
@@ -59,10 +56,7 @@ namespace BetterLights.Patches
             {
                 foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
                 {
-                    if (volumetricLight != null)
-                    {
-                        volumetricLight.RestoreVolume();
-                    }
+                    volumetricLight.RestoreVolume();
                 }
             }
         }

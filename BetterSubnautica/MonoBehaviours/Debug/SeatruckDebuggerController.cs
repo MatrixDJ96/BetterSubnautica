@@ -88,6 +88,17 @@ namespace BetterSubnautica.MonoBehaviours.Debug
                 return charge;
             }
         }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            if (Component != null && !Component.IsMainSegment())
+            {
+                Destroy(this);
+                return;
+            }
+        }
     }
 }
 #endif

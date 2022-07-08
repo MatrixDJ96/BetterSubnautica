@@ -8,12 +8,12 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public abstract class AbstractToggleLightsController<T> : MonoBehaviour, IToggleLightsController where T : Component
     {
-        public virtual bool MandatoryToggleLights { get; } = true;
-        public virtual bool MandatoryLightsParent { get; } = true;
-        public virtual bool MandatoryEnergySource { get; } = true;
+        protected virtual bool MandatoryToggleLights { get; } = true;
+        protected virtual bool MandatoryLightsParent { get; } = true;
+        protected virtual bool MandatoryEnergySource { get; } = true;
 
-        public abstract bool KeyDown { get; }
-        public abstract float EnergyConsumption { get; }
+        protected abstract bool KeyDown { get; }
+        protected abstract float EnergyConsumption { get; }
 
         protected T component = null;
         protected global::ToggleLights toggleLights = null;
@@ -59,8 +59,8 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                     ToggleLightsActive();
                 }
 
-                FixLightsParent();
                 FixToggleLights();
+                FixLightsParent();
             }
         }
 
@@ -212,6 +212,7 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                 lightsActive = active;
             }
 
+            FixToggleLights();
             FixLightsParent();
         }
 
@@ -220,7 +221,7 @@ namespace BetterLights.MonoBehaviours.ToggleLights
             SetLightsActive(!LightsActive);
         }
 
-        protected virtual bool IsPowered()
+        public virtual bool IsPowered()
         {
             if (energySource != null)
             {

@@ -5,22 +5,22 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public class CyclopsToggleLightsController : AbstractToggleLightsController<SubRoot>
     {
-        public override bool MandatoryLightsParent => false;
-        public override bool MandatoryToggleLights => false;
+        protected override bool MandatoryLightsParent => false;
+        protected override bool MandatoryToggleLights => false;
 
         private CyclopsLightingPanel lightingPanel = null;
         private CyclopsExternalCams externalCams = null;
 
-        public override bool KeyDown => false;
+        protected override bool KeyDown => false;
 
-        public override float EnergyConsumption
+        protected override float EnergyConsumption
         {
             get
             {
                 var energyPerSecond = 0f;
                 if (lightingPanel.lightingOn)
                 {
-                    if (component.lightingState == 0 && Player.main.currentSub == component)
+                    if (Player.main.currentSub == component)
                     {
                         energyPerSecond += Core.CyclopsSettings.InternalLightsConsumption;
                     }
@@ -66,6 +66,7 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                 if (!component.isCyclops || lightingPanel == null || externalCams == null)
                 {
                     Destroy(this);
+                    return;
                 }
             }
         }
@@ -82,11 +83,24 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                 active = false;
             }
 
-            lightingPanel.lightingOn = active;
+            if (force)
+            {
+                // Internal lights
+                lightingPanel.lightingOn = active;
+                component.ForceLightingState(active);
+            }
+
+            // External lights
             lightingPanel.floodlightsOn = active;
             lightingPanel.SetExternalLighting(active);
+
+            if (Player.main.currentSub == component)
+            {
+
+            }
+
+            // Buttons status
             lightingPanel.UpdateLightingButtons();
-            component.ForceLightingState(active);
         }
     }
 }

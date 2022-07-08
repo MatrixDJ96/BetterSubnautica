@@ -5,9 +5,9 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public class FlashlightHelmetToggleLightsController : AbstractToggleLightsController<FlashlightHelmet>
     {
-        public override bool KeyDown => Input.GetKeyDown(Core.FlashlightHelmetSettings.LightsButtonToggle);
+        protected override bool KeyDown => Input.GetKeyDown(Core.FlashlightHelmetSettings.LightsButtonToggle);
 
-        public override float EnergyConsumption => 0f; // Core.FlashlightHelmetSettings.LightsConsumption
+        protected override float EnergyConsumption => 0f; // Core.FlashlightHelmetSettings.LightsConsumption
 
         public override bool CanToggleLightsActive()
         {

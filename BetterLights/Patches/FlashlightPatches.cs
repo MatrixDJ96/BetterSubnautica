@@ -24,34 +24,4 @@ namespace BetterLights.Patches
             }
         }
     }
-
-    [HarmonyPatch(typeof(FlashLight))]
-    [HarmonyPatch(nameof(FlashLight.OnToolUseAnim))]
-    class FlashlightOnToolUseAnimPatch
-    {
-        static bool Prefix(FlashLight __instance)
-        {
-            return __instance.gameObject.GetComponent<IToggleLightsController>() == null;
-        }
-    }
-
-#if BELOWZERO
-    [HarmonyPatch(typeof(FlashlightHelmet))]
-    [HarmonyPatch(nameof(FlashlightHelmet.Awake))]
-    class FlashlightHelmetAwakePatch
-    {
-        static void Postfix(FlashlightHelmet __instance)
-        {
-            if (__instance.gameObject.GetComponent<FlashlightHelmetLightsController>() == null)
-            {
-                __instance.gameObject.AddComponent<FlashlightHelmetLightsController>();
-            }
-
-            if (__instance.gameObject.GetComponent<FlashlightHelmetToggleLightsController>() == null)
-            {
-                __instance.gameObject.AddComponent<FlashlightHelmetToggleLightsController>();
-            }
-        }
-    }
-#endif
 }

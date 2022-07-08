@@ -1,7 +1,7 @@
 ﻿using BetterSubnautica.Utility;
 using SMLHelper.V2.Json;
-using SMLHelper.V2.Options;
 using SMLHelper.V2.Options.Attributes;
+using System;
 using UnityEngine;
 using FullScreenModeEnum = UnityEngine.FullScreenMode;
 
@@ -58,38 +58,38 @@ namespace BetterGraphics
             return FramerateLimitEnable ? FramerateLimit : -1;
         }
 
-        private void FullScreenModeEvent(ChoiceChangedEventArgs e)
+        private void FullScreenModeEvent(EventArgs e)
         {
             Screen.fullScreenMode = GetFixedFullScreenMode();
             GraphicsUtility.OnQualityLevelChanged();
         }
 
-        private void VSyncFramerateEvent(SliderChangedEventArgs e)
+        private void VSyncFramerateEvent(EventArgs e)
         {
             QualitySettings.vSyncCount = GetFixedVSyncCount();
             QualitySettings.maxQueuedFrames = MaximumFrameCount;
             Application.targetFrameRate = GetFixedFramerateCount();
         }
 
-        private void AnisotropicFilteringEvent(ChoiceChangedEventArgs e)
+        private void AnisotropicFilteringEvent(EventArgs e)
         {
             QualitySettings.anisotropicFiltering = AnisotropicFiltering;
             GraphicsUtility.OnQualityLevelChanged();
         }
 
-        private void ShadowQualityEvent(ChoiceChangedEventArgs e)
+        private void ShadowQualityEvent(EventArgs e)
         {
             QualitySettings.shadows = ShadowQuality;
             GraphicsUtility.OnQualityLevelChanged();
         }
 
-        private void ShadowDistanceEvent(SliderChangedEventArgs e)
+        private void ShadowDistanceEvent(EventArgs e)
         {
             QualitySettings.shadowDistance = ShadowDistance;
             GraphicsUtility.OnQualityLevelChanged();
         }
 
-        private void ShadowResolutionEvent(ChoiceChangedEventArgs e)
+        private void ShadowResolutionEvent(EventArgs e)
         {
             QualitySettings.shadowResolution = ShadowResolution;
             GraphicsUtility.OnQualityLevelChanged();

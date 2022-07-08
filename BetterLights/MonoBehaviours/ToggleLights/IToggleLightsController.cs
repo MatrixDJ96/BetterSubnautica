@@ -6,5 +6,6 @@
 
         void SetLightsActive(bool active, bool force = false);
         void ToggleLightsActive();
+        bool IsPowered();
     }
 }

@@ -1,4 +1,4 @@
-﻿using BetterLights.MonoBehaviours.VolumetricLights;
+﻿using BetterLights.MonoBehaviours;
 using HarmonyLib;
 using System;
 using UnityEngine;
@@ -11,14 +11,14 @@ namespace BetterLights.Patches
     {
         static bool Prefix(VFXVolumetricLight __instance, bool forceUpdate)
         {
-            VolumetricLightsContainer.Dict.TryGetValue(__instance.GetInstanceID(), out var volumetricLightsController);
+            VolumetricLightsContainer.Instance.Dict.TryGetValue(__instance.GetInstanceID(), out var controller);
 
-            if (volumetricLightsController != null)
+            if (controller != null)
             {
-                volumetricLightsController.UpdateMaterial(__instance, forceUpdate);
+                controller.UpdateMaterial(__instance, forceUpdate);
             }
 
-            return volumetricLightsController == null;
+            return controller == null;
         }
     }
 

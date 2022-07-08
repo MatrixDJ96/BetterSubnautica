@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BetterVehicles.MonoBehaviours
+﻿namespace BetterVehicles.MonoBehaviours
 {
     public class ExosuitStorageController : AbstractVehicleStorageController
     {
@@ -16,14 +14,8 @@ namespace BetterVehicles.MonoBehaviours
 
         public override IItemsContainer[] GetVehicleStorage()
         {
-            var totalStorage = new List<IItemsContainer>(GetDefaultStorage());
-
-            if (base.GetVehicleStorage() is IItemsContainer[] vehicleStorage)
-            {
-                totalStorage.AddRange(vehicleStorage);
-            }
-
-            return totalStorage.ToArray();
+            // Default storage is already "merged" with extra storages, so return default
+            return GetDefaultStorage();
         }
 
     }

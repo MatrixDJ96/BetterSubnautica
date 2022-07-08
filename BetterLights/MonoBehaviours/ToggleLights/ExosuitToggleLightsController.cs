@@ -5,11 +5,11 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 {
     public class ExosuitToggleLightsController : AbstractToggleLightsController<Exosuit>
     {
-        public override bool MandatoryToggleLights { get; } = false;
+        protected override bool MandatoryToggleLights { get; } = false;
 
-        public override bool KeyDown => Input.GetKeyDown(Core.ExosuitSettings.LightsButtonToggle);
+        protected override bool KeyDown => Input.GetKeyDown(Core.ExosuitSettings.LightsButtonToggle);
 
-        public override float EnergyConsumption => Core.ExosuitSettings.LightsConsumption;
+        protected override float EnergyConsumption => Core.ExosuitSettings.LightsConsumption;
 
         protected override void Awake()
         {

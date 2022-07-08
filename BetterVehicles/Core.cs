@@ -15,6 +15,8 @@ namespace BetterVehicles
         public static GlobalSettings GlobalSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<GlobalSettings>();
 #if SUBNAUTICA
         public static CyclopsSettings CyclopsSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<CyclopsSettings>();
+#elif BELOWZERO
+        public static SeatruckSettings SeatruckSettings { get; } = OptionsPanelHandler.Main.RegisterModOptions<SeatruckSettings>();
 #endif
 
         [QModPrePatch]

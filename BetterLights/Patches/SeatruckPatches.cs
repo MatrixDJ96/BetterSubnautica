@@ -1,10 +1,10 @@
 #if BELOWZERO
+using BetterLights.MonoBehaviours;
 using BetterLights.MonoBehaviours.Lights;
 using BetterLights.MonoBehaviours.ToggleLights;
 using BetterLights.MonoBehaviours.VolumetricLights;
 using BetterSubnautica.Extensions;
 using HarmonyLib;
-using System.Collections.Generic;
 
 namespace BetterLights.Patches
 {
@@ -36,26 +36,37 @@ namespace BetterLights.Patches
 
     [HarmonyPatch(typeof(SeaTruckSegment))]
     [HarmonyPatch(nameof(SeaTruckSegment.SetPlayerInsideState))]
-    class SeamothSubConstructionCompletePatch
+    class SeaTruckSegmentSetPlayerInsideStatePatch
     {
         static void Postfix(SeaTruckSegment __instance, bool state)
         {
-            if (SeaTruckSegment.GetHead(__instance) is SeaTruckSegment seaTruck)
+            if (state && __instance.IsMainSegment() && __instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController controller)
             {
-                if (__instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
+                foreach (var volumetricLight in controller.VolumetricLights)
                 {
-                    var volumetricLight = new List<VFXVolumetricLight>(volumetricLightsController.VolumetricLights).FindAll(x => x != null);
-
-                    if (state)
-                    {
-                        volumetricLight.ForEach(x => x.DisableVolume());
-                    }
-                    else
-                    {
-                        volumetricLight.ForEach(x => x.RestoreVolume());
-                    }
+                    volumetricLight.DisableVolume();
                 }
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(SeaTruckLights))]
+    [HarmonyPatch(nameof(SeaTruckLights.Update))]
+    class SeaTruckLightsUpdatePatch
+    {
+        static bool Prefix(SeaTruckLights __instance)
+        {
+            SeatruckLightsContainer.Instance.Dict.TryGetValue(__instance.GetInstanceID(), out var controller);
+
+            if (controller != null)
+            {
+                if (__instance.lightingController != null)
+                {
+                    __instance.lightingController.LerpToState(controller.IsPowered() ? 2 : 0);
+                }
+            }
+
+            return controller == null;
         }
     }
 }

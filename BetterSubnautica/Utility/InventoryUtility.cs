@@ -7,9 +7,8 @@
         {
             var result = ItemAction.None;
 
-            if (item != null)
+            if (item != null && item.item is Pickupable pickupable)
             {
-                var pickupable = item.item;
                 var techType = pickupable.GetTechType();
 
                 GameModeUtils.GetGameMode(out var mode, out var _);

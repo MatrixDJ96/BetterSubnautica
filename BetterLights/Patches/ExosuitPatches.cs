@@ -39,9 +39,9 @@ namespace BetterLights.Patches
     {
         static void Postfix(Vehicle __instance)
         {
-            if (__instance is Exosuit && __instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController toggleLightsController)
+            if (__instance is Exosuit && __instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController controller)
             {
-                toggleLightsController.SetLightsActive(true);
+                controller.SetLightsActive(true, true);
             }
         }
     }
@@ -52,14 +52,11 @@ namespace BetterLights.Patches
     {
         static void Postfix(Exosuit __instance)
         {
-            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
+            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController controller)
             {
-                foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
+                foreach (var volumetricLight in controller.VolumetricLights)
                 {
-                    if (volumetricLight != null)
-                    {
-                        volumetricLight.DisableVolume();
-                    }
+                    volumetricLight.DisableVolume();
                 }
             }
         }
@@ -71,14 +68,11 @@ namespace BetterLights.Patches
     {
         static void Postfix(Exosuit __instance)
         {
-            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
+            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController controller)
             {
-                foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
+                foreach (var volumetricLight in controller.VolumetricLights)
                 {
-                    if (volumetricLight != null)
-                    {
-                        volumetricLight.RestoreVolume();
-                    }
+                    volumetricLight.RestoreVolume();
                 }
             }
         }
