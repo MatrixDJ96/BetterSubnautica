@@ -1,8 +1,8 @@
-﻿using BetterSubnautica.Components;
+using System;
+using BetterSubnautica.Components;
 using BetterSubnautica.Enums;
 using BetterSubnautica.Utility;
 using HarmonyLib;
-using System;
 using UnityEngine;
 
 namespace BetterSubnautica.Extensions

@@ -38,7 +38,11 @@ namespace BetterLights.MonoBehaviours.ToggleLights
 
         public override bool CanToggleLightsActive()
         {
+#if SUBNAUTICA
+            return base.CanToggleLightsActive() && !component.active;
+#elif BELOWZERO
             return base.CanToggleLightsActive() && component.controllingPlayer != null;
+#endif
         }
     }
 }

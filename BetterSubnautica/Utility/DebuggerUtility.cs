@@ -1,4 +1,4 @@
-﻿using BetterSubnautica.MonoBehaviours.Debug;
+﻿using BetterSubnautica.MonoBehaviours;
 
 namespace BetterSubnautica.Utility
 {

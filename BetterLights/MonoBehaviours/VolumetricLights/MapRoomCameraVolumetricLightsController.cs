@@ -1,6 +1,6 @@
-﻿using BetterSubnautica.Enums;
+﻿using System.Collections;
+using BetterSubnautica.Enums;
 using BetterSubnautica.Extensions;
-using System.Collections;
 using UnityEngine;
 
 namespace BetterLights.MonoBehaviours.VolumetricLights

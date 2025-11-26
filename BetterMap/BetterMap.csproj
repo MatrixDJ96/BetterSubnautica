@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="$(SolutionDir)Common.props"/>
+    <Import Project="$(SolutionDir)Constants.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>BetterMap</RootNamespace>
+        <AssemblyName>BetterMap</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'SN.MULTI' Or '$(Configuration)' == 'BZ.MULTI'">
+        <ProjectReference Include="..\BetterNitrox\BetterNitrox.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'SN.STABLE' Or '$(Configuration)' == 'BZ.STABLE'">
+        <Publicize Include="SubnauticaMap"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'SN.MULTI' Or '$(Configuration)' == 'BZ.MULTI'">
+        <Publicize Include="SubnauticaMap_BZ"/>
+    </ItemGroup>
+
+    <Import Project="$(SolutionDir)References.targets"/>
+    <Import Project="$(SolutionDir)Builds.targets"/>
+</Project>

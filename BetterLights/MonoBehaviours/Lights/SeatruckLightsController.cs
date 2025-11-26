@@ -1,6 +1,6 @@
 ﻿#if BELOWZERO
-using BetterSubnautica.Extensions;
 using System.Collections.Generic;
+using BetterSubnautica.Extensions;
 using UnityEngine;
 
 namespace BetterLights.MonoBehaviours.Lights

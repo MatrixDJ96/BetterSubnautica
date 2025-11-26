@@ -1,4 +1,4 @@
-﻿using BetterLights.MonoBehaviours.Lights;
+using BetterLights.MonoBehaviours.Lights;
 using BetterLights.MonoBehaviours.ToggleLights;
 using HarmonyLib;
 

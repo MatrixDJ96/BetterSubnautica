@@ -29,7 +29,7 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                         energyPerSecond += Core.CyclopsSettings.InternalLightsConsumption / 2;
                     }
                 }
-                if (externalCams.GetUsingCameras())
+                if (externalCams.GetActive())
                 {
                     switch (externalCams.GetLightState())
                     {
@@ -52,7 +52,7 @@ namespace BetterLights.MonoBehaviours.ToggleLights
             }
         }
 
-        public override bool LightsActive => lightsActive = externalCams.GetUsingCameras() || lightingPanel.lightingOn || lightingPanel.floodlightsOn;
+        public override bool LightsActive => lightsActive = externalCams.GetActive() || lightingPanel.lightingOn || lightingPanel.floodlightsOn;
 
         protected override void Awake()
         {

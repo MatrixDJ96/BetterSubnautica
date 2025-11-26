@@ -56,7 +56,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
                 {
                     lightsType |= LightsType.Internal;
                 }
-                if (ExternalCams != null && ExternalCams.GetUsingCameras())
+                if (ExternalCams != null && ExternalCams.GetActive())
                 {
                     if (ExternalCams.GetLightState() > 0)
                     {
@@ -82,7 +82,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
                 }
                 if (ExternalCams != null)
                 {
-                    lightsActive |= ExternalCams.GetUsingCameras() && ExternalCams.GetLightState() > 0;
+                    lightsActive |= ExternalCams.GetActive() && ExternalCams.GetLightState() > 0;
                 }
                 return lightsActive;
             }

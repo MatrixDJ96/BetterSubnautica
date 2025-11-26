@@ -1,6 +1,6 @@
-﻿using BetterSubnautica.Extensions;
 using System;
 using System.Linq;
+using BetterSubnautica.Extensions;
 using UnityEngine;
 
 namespace BetterLights.MonoBehaviours.VolumetricLights

@@ -41,19 +41,6 @@ namespace BetterLights.Patches
     }
 
     [HarmonyPatch(typeof(CyclopsExternalCams))]
-    [HarmonyPatch(nameof(CyclopsExternalCams.EnterCameraView))]
-    class CyclopsExternalCamsEnterCameraViewPatch
-    {
-        static void Postfix(CyclopsExternalCams __instance)
-        {
-            if (__instance.lightingPanel != null && __instance.lightingPanel.floodlightsOn)
-            {
-                //FMODUWE.PlayOneShot(__instance.lightingPanel.vn_floodlightsOff, __instance.externalCamPositions[__instance.GetCameraIndex()].transform.position, 0.5f);
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(CyclopsExternalCams))]
     [HarmonyPatch(nameof(CyclopsExternalCams.ChangeCamera))]
     class CyclopsExternalCamsChangeCameraPatch
     {
@@ -65,21 +52,6 @@ namespace BetterLights.Patches
         static void Postfix(CyclopsExternalCams __instance, int __state, int iterate)
         {
             __instance.SetLightState(__state);
-        }
-    }
-
-    [HarmonyPatch(typeof(CyclopsExternalCams))]
-    [HarmonyPatch(nameof(CyclopsExternalCams.ExitCamera))]
-    class CyclopsExternalCamsExitCameraPatch
-    {
-        static void Postfix(CyclopsExternalCams __instance)
-        {
-            if (__instance.lightingPanel != null && __instance.lightingPanel.floodlightsOn)
-            {
-                //FMODUWE.PlayOneShot(__instance.lightingPanel.vn_floodlightsOn, __instance.lightingPanel.transform.position);
-            }
-
-            __instance.externalCamPositions[__instance.cameraIndex].SendMessage("DeactivateCamera", null, SendMessageOptions.RequireReceiver);
         }
     }
 }

@@ -24,6 +24,7 @@
 
             return false;
         }
+
         public static float GetEnergyScalar(this Vehicle __instance)
         {
             if (__instance != null)

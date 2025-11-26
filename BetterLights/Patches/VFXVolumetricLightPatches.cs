@@ -1,6 +1,6 @@
-﻿using BetterLights.MonoBehaviours;
-using HarmonyLib;
 using System;
+using BetterLights.MonoBehaviours;
+using HarmonyLib;
 using UnityEngine;
 
 namespace BetterLights.Patches
