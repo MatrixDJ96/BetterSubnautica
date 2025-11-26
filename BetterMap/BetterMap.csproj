@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="$(SolutionDir)Constants.props"/>
+    <Import Project="$(SolutionDir)Common.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>BetterMap</RootNamespace>
+        <AssemblyName>BetterMap</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(IsSubnautica)' == 'true'">
+        <Publicize Include="SubnauticaMap"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(IsBelowZero)' == 'true'">
+        <Publicize Include="SubnauticaMap_BZ"/>
+    </ItemGroup>
+
+    <Import Project="$(SolutionDir)References.targets"/>
+    <Import Project="$(SolutionDir)Builds.targets"/>
+</Project>

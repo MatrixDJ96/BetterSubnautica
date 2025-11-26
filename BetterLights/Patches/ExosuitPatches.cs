@@ -18,28 +18,23 @@ namespace BetterLights.Patches
 
             if (__instance.gameObject.GetComponent<ExosuitToggleLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<ExosuitToggleLightsController>();
+                //__instance.gameObject.AddComponent<ExosuitToggleLightsController>();
             }
 
             if (__instance.gameObject.GetComponent<ExosuitVolumetricLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<ExosuitVolumetricLightsController>();
+                //__instance.gameObject.AddComponent<ExosuitVolumetricLightsController>();
             }
         }
     }
 
-#if SUBNAUTICA_STABLE || BELOWZERO_STABLE
     [HarmonyPatch(typeof(Exosuit))]
     [HarmonyPatch(nameof(Exosuit.SubConstructionComplete))]
-#else
-    [HarmonyPatch(typeof(Vehicle))]
-    [HarmonyPatch(nameof(Vehicle.SubConstructionComplete))]
-#endif
     class ExosuitSubConstructionCompletePatch
     {
         static void Postfix(Vehicle __instance)
         {
-            if (__instance is Exosuit && __instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController controller)
+            if (__instance is Exosuit && __instance.gameObject.GetComponent<IToggleLightsController>() is { } controller)
             {
                 controller.SetLightsActive(true, true);
             }
@@ -52,7 +47,7 @@ namespace BetterLights.Patches
     {
         static void Postfix(Exosuit __instance)
         {
-            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController controller)
+            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is { } controller)
             {
                 foreach (var volumetricLight in controller.VolumetricLights)
                 {
@@ -68,7 +63,7 @@ namespace BetterLights.Patches
     {
         static void Postfix(Exosuit __instance)
         {
-            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController controller)
+            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is { } controller)
             {
                 foreach (var volumetricLight in controller.VolumetricLights)
                 {

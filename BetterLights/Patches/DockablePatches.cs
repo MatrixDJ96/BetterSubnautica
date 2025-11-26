@@ -10,7 +10,7 @@ namespace BetterLights.Patches
     {
         static void Prefix(Dockable __instance)
         {
-            if (__instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController controller)
+            if (__instance.gameObject.GetComponent<IToggleLightsController>() is { } controller)
             {
                 controller.SetLightsActive(false, true);
             }
@@ -23,7 +23,7 @@ namespace BetterLights.Patches
     {
         static void Prefix(Dockable __instance)
         {
-            if (__instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController controller)
+            if (__instance.gameObject.GetComponent<IToggleLightsController>() is { } controller)
             {
                 controller.SetLightsActive(Core.VehiclesSettings.EnableLightsOnUndocking, true);
             }

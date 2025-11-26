@@ -1,6 +1,6 @@
-﻿using BetterSubnautica.Enums;
+﻿using System.Collections;
+using BetterSubnautica.Enums;
 using BetterSubnautica.Extensions;
-using System.Collections;
 using UnityEngine;
 
 namespace BetterLights.MonoBehaviours.VolumetricLights
@@ -23,7 +23,7 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
             yield return request;
             GameObject gameObject = request.GetResult();
 
-            if (gameObject.GetComponent<SeaMoth>() is SeaMoth seamoth)
+            if (gameObject.GetComponent<SeaMoth>() is { } seamoth)
             {
                 var lights = component.gameObject.GetComponentsInChildren<Light>(true);
                 var seamothLights = seamoth.gameObject.GetComponentsInChildren<Light>(true);

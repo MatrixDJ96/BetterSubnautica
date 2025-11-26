@@ -38,7 +38,7 @@ namespace BetterLights.Patches
     {
         static void Postfix(CyclopsLightingPanel __instance)
         {
-            if (__instance.gameObject.GetComponentInParent<IToggleLightsController>() is IToggleLightsController controller)
+            if (__instance.gameObject.GetComponentInParent<IToggleLightsController>() is { } controller)
             {
                 controller.SetLightsActive(true, true);
             }
@@ -52,7 +52,7 @@ namespace BetterLights.Patches
         static void Postfix(CyclopsLightingPanel __instance)
         {
             // Disable volumetric lights if external lights enabled and player inside cyclops
-            if (__instance.floodlightsOn && __instance.cyclopsRoot != null && __instance.cyclopsRoot.isCyclops && __instance.cyclopsRoot == Player.main.currentSub && __instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is IVolumetricLightsController controller)
+            if (__instance.floodlightsOn && __instance.cyclopsRoot != null && __instance.cyclopsRoot.isCyclops && __instance.cyclopsRoot == Player.main.currentSub && __instance.gameObject.GetComponentInParent<IVolumetricLightsController>() is { } controller)
             {
                 foreach (var volumetricLight in controller.VolumetricLights)
                 {

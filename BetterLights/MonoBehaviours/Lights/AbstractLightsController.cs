@@ -173,7 +173,7 @@ namespace BetterLights.MonoBehaviours.Lights
                         {
                             lights[i].range = startRanges[i] + RangeOffset;
 
-                            if (lights[i].gameObject.GetComponent<VFXVolumetricLight>() is VFXVolumetricLight volumetricLight)
+                            if (lights[i].gameObject.GetComponent<VFXVolumetricLight>() is { } volumetricLight)
                             {
                                 volumetricLight.UpdateScale();
                             }

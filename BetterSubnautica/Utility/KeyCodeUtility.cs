@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿#if BELOWZERO
+using System.Text;
 using UnityEngine;
 
 namespace BetterSubnautica.Utility
@@ -24,11 +25,7 @@ namespace BetterSubnautica.Utility
 
             if (sb.Length == 0)
             {
-#if SUBNAUTICA
-                var text = Language.main ? Language.main.Get("NoInputAssigned") : "No Input Assigned";
-#elif BELOWZERO
                 var text = Language.isNotQuitting ? Language.main.Get("NoInputAssigned") : "No Input Assigned";
-#endif
                 sb.Append(withColor ? $"<color=#ADF8FFFF>{text}</color>" : text);
             }
 
@@ -62,3 +59,4 @@ namespace BetterSubnautica.Utility
         }
     }
 }
+#endif

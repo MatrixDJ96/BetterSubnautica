@@ -19,12 +19,12 @@ namespace BetterLights.Patches
 
             if (__instance.gameObject.GetComponent<HoverbikeToggleLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<HoverbikeToggleLightsController>();
+                //__instance.gameObject.AddComponent<HoverbikeToggleLightsController>();
             }
 
             if (__instance.gameObject.GetComponent<HoverbikeVolumetricLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<HoverbikeVolumetricLightsController>();
+                //__instance.gameObject.AddComponent<HoverbikeVolumetricLightsController>();
             }
         }
     }
@@ -36,7 +36,7 @@ namespace BetterLights.Patches
     {
         static void Postfix(Hoverbike __instance)
         {
-            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
+            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is { } volumetricLightsController)
             {
                 foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
                 {
@@ -52,7 +52,7 @@ namespace BetterLights.Patches
     {
         static void Postfix(Hoverbike __instance)
         {
-            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
+            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is { } volumetricLightsController)
             {
                 foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
                 {

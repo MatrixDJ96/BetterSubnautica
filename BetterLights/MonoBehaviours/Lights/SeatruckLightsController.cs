@@ -1,6 +1,6 @@
 ﻿#if BELOWZERO
-using BetterSubnautica.Extensions;
 using System.Collections.Generic;
+using BetterSubnautica.Extensions;
 using UnityEngine;
 
 namespace BetterLights.MonoBehaviours.Lights
@@ -27,7 +27,7 @@ namespace BetterLights.MonoBehaviours.Lights
 
                 foreach (Transform item in additionalComponent.floodLight.transform)
                 {
-                    if (item.gameObject.GetComponent<Light>() is Light light)
+                    if (item.gameObject.GetComponent<Light>() is { } light)
                     {
                         seatruckLights.Add(light);
                     }

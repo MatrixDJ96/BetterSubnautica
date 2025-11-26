@@ -14,7 +14,7 @@ namespace BetterQuickSlots.Patches
     {
         static void Postfix(uGUI __instance)
         {
-            if (uGUI.main == __instance && __instance.quickSlots is uGUI_QuickSlots quickSlots)
+            if (uGUI.main == __instance && __instance.quickSlots is { } quickSlots)
             {
                 if (quickSlots.gameObject.GetComponent<QuickSlotsController>() == null)
                 {
@@ -36,7 +36,7 @@ namespace BetterQuickSlots.Patches
 
                 for (int i = Player.quickSlotButtonsCount; i < Core.Settings.SlotCount; i++)
                 {
-                    if (typeof(SlotsUtility).GetProperty($"Slot{i + 1}", bindingFlags) is PropertyInfo property)
+                    if (typeof(SlotsUtility).GetProperty($"Slot{i + 1}", bindingFlags) is { } property)
                     {
                         var keyCode = (KeyCode)property.GetValue(null);
 
@@ -70,7 +70,7 @@ namespace BetterQuickSlots.Patches
 
                 for (int i = 0; i < Player.quickSlotButtonsCount; i++)
                 {
-                    if (typeof(SlotsUtility).GetProperty($"Slot{i + 1}", bindingFlags) is PropertyInfo property)
+                    if (typeof(SlotsUtility).GetProperty($"Slot{i + 1}", bindingFlags) is { } property)
                     {
                         if ("Option" + property.Name == label)
                         {

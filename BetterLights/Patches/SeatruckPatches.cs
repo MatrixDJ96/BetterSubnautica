@@ -23,12 +23,12 @@ namespace BetterLights.Patches
 
                 if (__instance.gameObject.GetComponent<SeatruckToggleLightsController>() == null)
                 {
-                    __instance.gameObject.AddComponent<SeatruckToggleLightsController>();
+                    //__instance.gameObject.AddComponent<SeatruckToggleLightsController>();
                 }
 
                 if (__instance.gameObject.GetComponent<SeatruckVolumetricLightsController>() == null)
                 {
-                    __instance.gameObject.AddComponent<SeatruckVolumetricLightsController>();
+                    //__instance.gameObject.AddComponent<SeatruckVolumetricLightsController>();
                 }
             }
         }
@@ -40,7 +40,7 @@ namespace BetterLights.Patches
     {
         static void Postfix(SeaTruckSegment __instance, bool state)
         {
-            if (state && __instance.IsMainSegment() && __instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController controller)
+            if (state && __instance.IsMainSegment() && __instance.gameObject.GetComponent<IVolumetricLightsController>() is { } controller)
             {
                 foreach (var volumetricLight in controller.VolumetricLights)
                 {

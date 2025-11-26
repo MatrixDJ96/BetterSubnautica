@@ -1,4 +1,4 @@
-﻿using BetterLights.MonoBehaviours.Lights;
+using BetterLights.MonoBehaviours.Lights;
 using BetterLights.MonoBehaviours.ToggleLights;
 using BetterLights.MonoBehaviours.VolumetricLights;
 using HarmonyLib;
@@ -18,12 +18,12 @@ namespace BetterLights.Patches
 
             if (__instance.gameObject.GetComponent<MapRoomCameraToggleLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<MapRoomCameraToggleLightsController>();
+                //__instance.gameObject.AddComponent<MapRoomCameraToggleLightsController>();
             }
 
             if (__instance.gameObject.GetComponent<MapRoomCameraVolumetricLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<MapRoomCameraVolumetricLightsController>();
+                //__instance.gameObject.AddComponent<MapRoomCameraVolumetricLightsController>();
             }
         }
     }
@@ -34,12 +34,12 @@ namespace BetterLights.Patches
     {
         static void Postfix(MapRoomCamera __instance, Player player, MapRoomScreen screen)
         {
-            if (__instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController toggleLightsController)
+            if (__instance.gameObject.GetComponent<IToggleLightsController>() is { } toggleLightsController)
             {
                 toggleLightsController.SetLightsActive(toggleLightsController.LightsActive);
             }
 
-            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
+            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is { } volumetricLightsController)
             {
                 foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
                 {
@@ -55,12 +55,12 @@ namespace BetterLights.Patches
     {
         static void Postfix(MapRoomCamera __instance)
         {
-            if (__instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController toggleLightsController)
+            if (__instance.gameObject.GetComponent<IToggleLightsController>() is { } toggleLightsController)
             {
                 toggleLightsController.SetLightsActive(__instance.dockingPoint == null ? toggleLightsController.LightsActive : false);
             }
 
-            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is IVolumetricLightsController volumetricLightsController)
+            if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is { } volumetricLightsController)
             {
                 foreach (var volumetricLight in volumetricLightsController.VolumetricLights)
                 {

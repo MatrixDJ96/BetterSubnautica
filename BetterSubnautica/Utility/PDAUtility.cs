@@ -14,13 +14,7 @@ namespace BetterSubnautica.Utility
                 if (__instance.state == PDA.State.Opened)
                 {
                     Player.main.playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
-
-#if SUBNAUTICA_STABLE
-                    FreezeTime.Begin(FreezeTimeUtility.PDAId, true);
-#else
                     FreezeTime.Begin(FreezeTimeUtility.PDAId);
-#endif
-
                     InPause = true;
                 }
             }

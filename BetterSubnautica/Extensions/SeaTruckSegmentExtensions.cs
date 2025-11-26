@@ -6,7 +6,7 @@ namespace BetterSubnautica.Extensions
     {
         public static bool IsMainSegment(this SeaTruckSegment __instance)
         {
-            return SeaTruckSegment.GetHead(__instance) is SeaTruckSegment head && head == __instance && __instance.isMainCab;
+            return SeaTruckSegment.GetHead(__instance) is { } head && head == __instance && __instance.isMainCab;
         }
     }
 }

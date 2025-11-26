@@ -1,8 +1,8 @@
-﻿using BetterSubnautica.Components;
+using System;
+using BetterSubnautica.Components;
 using BetterSubnautica.Enums;
 using BetterSubnautica.Utility;
 using HarmonyLib;
-using System;
 using UnityEngine;
 
 namespace BetterSubnautica.Extensions
@@ -50,7 +50,7 @@ namespace BetterSubnautica.Extensions
 
         public static GameObject GetLightsParent<T>(this T __instance) where T : Component
         {
-            if (__instance.gameObject.transform.Find("lights_parent") is Transform transform)
+            if (__instance.gameObject.transform.Find("lights_parent") is { } transform)
             {
                 return transform.gameObject;
             }
@@ -75,17 +75,17 @@ namespace BetterSubnautica.Extensions
 
         public static IEnergySource GetEnergySource<T>(this T __instance) where T : Component
         {
-            if (__instance.GetPowerRelay() is PowerRelay powerRelay)
+            if (__instance.GetPowerRelay() is { } powerRelay)
             {
                 return new PowerRelaySource() { Component = powerRelay };
             }
 
-            if (__instance.GetEnergyInterface() is EnergyInterface energyInterface)
+            if (__instance.GetEnergyInterface() is { } energyInterface)
             {
                 return new EnergyInterfaceSource() { Component = energyInterface };
             }
 
-            if (__instance.GetEnergyMixin() is EnergyMixin energyMixin)
+            if (__instance.GetEnergyMixin() is { } energyMixin)
             {
                 return new EnergyMixinSource() { Component = energyMixin };
             }

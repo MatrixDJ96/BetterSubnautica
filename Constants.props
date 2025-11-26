@@ -1,15 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
-		<DefineConstants>SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.EXP|AnyCPU'">
-		<DefineConstants>SUBNAUTICA;SUBNAUTICA_EXP</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
-		<DefineConstants>BELOWZERO;BELOWZERO_STABLE</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.EXP|AnyCPU'">
-		<DefineConstants>BELOWZERO;BELOWZERO_EXP</DefineConstants>
-	</PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
+        <DefineConstants>SUBNAUTICA;STABLE;SUBNAUTICA_STABLE</DefineConstants>
+        <IsSubnautica>true</IsSubnautica>
+        <IsStable>true</IsStable>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.MULTI|AnyCPU'">
+        <DefineConstants>SUBNAUTICA;MULTI;SUBNAUTICA_MULTI</DefineConstants>
+        <IsSubnautica>true</IsSubnautica>
+        <IsMultiplayer>true</IsMultiplayer>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
+        <DefineConstants>BELOWZERO;STABLE;BELOWZERO_STABLE</DefineConstants>
+        <IsBelowZero>true</IsBelowZero>
+        <IsStable>true</IsStable>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.MULTI|AnyCPU'">
+        <DefineConstants>BELOWZERO;MULTI;BELOWZERO_MULTI</DefineConstants>
+        <IsBelowZero>true</IsBelowZero>
+        <IsMultiplayer>true</IsMultiplayer>
+    </PropertyGroup>
 </Project>

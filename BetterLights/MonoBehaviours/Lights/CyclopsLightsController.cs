@@ -26,7 +26,7 @@ namespace BetterLights.MonoBehaviours.Lights
 
                 foreach (Transform item in additionalComponent.floodlightsHolder.transform)
                 {
-                    if (item.gameObject.GetComponent<Light>() is Light light)
+                    if (item.gameObject.GetComponent<Light>() is { } light)
                     {
                         cyclopsLights.Add(light);
                     }

@@ -6,7 +6,7 @@
         {
             for (int i = 0; i < __instance.GetSlotCount(); i++)
             {
-                if (__instance.GetStorageInSlot(i, techType) is ItemsContainer)
+                if (__instance.GetStorageInSlot(i, techType) is not null)
                 {
                     return true;
                 }
@@ -24,6 +24,7 @@
 
             return false;
         }
+
         public static float GetEnergyScalar(this Vehicle __instance)
         {
             if (__instance != null)

@@ -11,9 +11,9 @@ namespace BetterLights.Patches
     {
         static void Postfix(VFXConstructing __instance)
         {
-            if (__instance.gameObject.GetComponent<SeaTruckSegment>() is SeaTruckSegment seatruck && seatruck.IsMainSegment())
+            if (__instance.gameObject.GetComponent<SeaTruckSegment>() is { } seatruck && seatruck.IsMainSegment())
             {
-                if (seatruck.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController controller)
+                if (seatruck.gameObject.GetComponent<IToggleLightsController>() is { } controller)
                 {
                     controller.SetLightsActive(true, true);
                 }

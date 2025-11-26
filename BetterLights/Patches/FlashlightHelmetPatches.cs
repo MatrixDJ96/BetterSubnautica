@@ -18,7 +18,7 @@ namespace BetterLights.Patches
 
             if (__instance.gameObject.GetComponent<FlashlightHelmetToggleLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<FlashlightHelmetToggleLightsController>();
+                //__instance.gameObject.AddComponent<FlashlightHelmetToggleLightsController>();
             }
         }
     }

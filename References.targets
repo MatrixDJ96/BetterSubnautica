@@ -1,64 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Xml.Linq" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<Reference Include="Microsoft.CSharp" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Net.Http" />
-		<Reference Include="System.Xml" />
-		<Reference Include="0Harmony">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Assembly-CSharp">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Assembly-CSharp-firstpass">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="LitJSON">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Newtonsoft.Json">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="PlatformIODefault">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="QModInstaller">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="SMLHelper">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Unity.TextMeshPro">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.CoreModule">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.AnimationModule">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.IMGUIModule">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.InputLegacyModule">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.UIModule">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.TextRenderingModule">
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.UI">
-			<Private>False</Private>
-		</Reference>
-	</ItemGroup>
+    <ItemDefinitionGroup>
+        <PackageReference ExcludeAssets="runtime"/>
+        <ProjectReference Private="false"/>
+        <Reference Private="false"/>
+    </ItemDefinitionGroup>
+
+    <ItemGroup>
+        <ManagedDll Include="$(ManagedDir)\**\*.dll"/>
+        <Reference Include="@(ManagedDll)"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <DepsDll Include="$(ReferencePath)\**\*.dll"/>
+        <Reference Include="@(DepsDll)"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(IsSubnautica)' == 'true' And '$(IsMultiplayer)' == 'true'">
+        <NitroxDll Include="$(NitroxDir)\**\*.dll"/>
+        <Reference Include="@(NitroxDll)"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(IsBelowZero)' == 'true' And '$(IsMultiplayer)' == 'true'">
+        <NitroxDll Include="$(NitroxDir)\Subnautica.*.dll"/>
+        <NitroxDll Include="$(NitroxDir)\Dependencies\Subnautica.*.dll"/>
+        <NitroxDll Include="$(NitroxDir)\Plugins\Subnautica.*.dll"/>
+        <Reference Include="@(NitroxDll)"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(AssemblyName)' != 'BetterSubnautica'">
+        <ProjectReference Include="..\BetterSubnautica\BetterSubnautica.csproj"/>
+        <ProjectReference Condition="'$(AssemblyName)' != 'BetterNitrox' And '$(IsMultiplayer)' == 'true'" Include="..\BetterNitrox\BetterNitrox.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.0" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.Core" Version="5.*"/>
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(IsSubnautica)' == 'true'">
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.47" GeneratePathProperty="true" ExcludeAssets="all"/>
+
+        <Reference Include="Nautilus">
+            <HintPath>$(PkgSubnautica_Nautilus)\lib\net472\Nautilus.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(IsBelowZero)' == 'true'">
+        <PackageReference Include="SubnauticaZero.Nautilus" Version="1.0.0-pre.47" GeneratePathProperty="true" ExcludeAssets="all"/>
+
+        <Reference Include="Nautilus">
+            <HintPath>$(PkgSubnauticaZero_Nautilus)\lib\net472\Nautilus.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Publicize Include="Assembly-CSharp"/>
+        <Publicize Include="Assembly-CSharp-firstpass"/>
+    </ItemGroup>
+
+    <!--<Target Name="Dump" BeforeTargets="ResolveAssemblyReferences">
+        <Message Text="Configuration = '$(Configuration)'" Importance="high"/>
+        <Message Text="NitroxDir = $(NitroxDir)" Importance="high"/>
+        <Message Text="NitroxDll = @(NitroxDll, ';')" Importance="high"/>
+        <Message Text="GameDir = $(GameDir)" Importance="high"/>
+        <Message Text="GameDll = @(GameDll, ';')" Importance="high"/>
+    </Target>-->
 </Project>

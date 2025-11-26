@@ -1,6 +1,6 @@
 using BetterSubnautica.Utility;
 using HarmonyLib;
-using SMLHelper.V2.Options.Attributes;
+using Nautilus.Options.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -23,7 +23,7 @@ namespace BetterQuickSlots.Utility
 
         private static string[] CreateSlotNames()
         {
-            if (Core.Settings.GetType().GetProperty(nameof(Core.Settings.SlotCount)) is PropertyInfo property)
+            if (Core.Settings.GetType().GetProperty(nameof(Core.Settings.SlotCount)) is { } property)
             {
                 var attribute = property.GetCustomAttribute<SliderAttribute>();
 
@@ -52,7 +52,7 @@ namespace BetterQuickSlots.Utility
             {
                 var bindingFlags = BindingFlags.Public | BindingFlags.Static;
 
-                if (typeof(SlotsUtility).GetProperty($"Slot{slot + 1}", bindingFlags) is PropertyInfo property)
+                if (typeof(SlotsUtility).GetProperty($"Slot{slot + 1}", bindingFlags) is { } property)
                 {
                     return KeyCodeUtility.GetName((KeyCode)property.GetValue(null), withColor);
                 }
@@ -69,7 +69,7 @@ namespace BetterQuickSlots.Utility
 
             for (int i = 0; i < Player.quickSlotButtonsCount; i++)
             {
-                if (typeof(SlotsUtility).GetProperty($"Slot{i + 1}", bindingFlags) is PropertyInfo property)
+                if (typeof(SlotsUtility).GetProperty($"Slot{i + 1}", bindingFlags) is { } property)
                 {
                     var keyCode = (KeyCode)property.GetValue(null);
                     var button = (GameInput.Button)Enum.Parse(typeof(GameInput.Button), property.Name);

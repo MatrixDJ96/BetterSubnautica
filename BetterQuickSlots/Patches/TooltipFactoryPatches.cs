@@ -13,7 +13,7 @@ namespace BetterSubnautica.Patches
     {
         static void Postfix()
         {
-            if (uGUI.main != null && uGUI.main.quickSlots is uGUI_QuickSlots __instance)
+            if (uGUI.main != null && uGUI.main.quickSlots is { } __instance)
             {
                 __instance.StartCoroutine(UpdateKeyRangeCoroutine(__instance));
             }

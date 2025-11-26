@@ -74,11 +74,7 @@ namespace BetterHUD.MonoBehaviours
 
             Style = new GUIStyle
             {
-#if SUBNAUTICA_STABLE
-                font = HandReticle.main.interactPrimaryText.font,
-#else
                 font = HandReticle.main.compTextHand.font.sourceFontFile,
-#endif
                 fontSize = Core.Settings.TimeFontSize,
                 fontStyle = (FontStyle)Core.Settings.TimeFontStyle,
                 clipping = TextClipping.Overflow

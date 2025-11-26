@@ -19,12 +19,12 @@ namespace BetterLights.Patches
 
             if (__instance.gameObject.GetComponent<SeamothToggleLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<SeamothToggleLightsController>();
+                //__instance.gameObject.AddComponent<SeamothToggleLightsController>();
             }
 
             if (__instance.gameObject.GetComponent<SeamothVolumetricLightsController>() == null)
             {
-                __instance.gameObject.AddComponent<SeamothVolumetricLightsController>();
+                //__instance.gameObject.AddComponent<SeamothVolumetricLightsController>();
             }
         }
     }
@@ -35,7 +35,7 @@ namespace BetterLights.Patches
     {
         static void Postfix(SeaMoth __instance)
         {
-            if (__instance.gameObject.GetComponent<IToggleLightsController>() is IToggleLightsController toggleLightsController)
+            if (__instance.gameObject.GetComponent<IToggleLightsController>() is { } toggleLightsController)
             {
                 toggleLightsController.SetLightsActive(true, true);
             }

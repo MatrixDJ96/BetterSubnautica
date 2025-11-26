@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="$(SolutionDir)Constants.props"/>
+    <Import Project="$(SolutionDir)Common.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>BetterNitrox</RootNamespace>
+        <PackageId>BetterNitrox</PackageId>
+    </PropertyGroup>
+
+    <Import Project="$(SolutionDir)References.targets"/>
+    <Import Project="$(SolutionDir)Builds.targets"/>
+</Project>
