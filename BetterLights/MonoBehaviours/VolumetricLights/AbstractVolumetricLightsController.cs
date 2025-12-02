@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using BetterSubnautica.Extensions;
 using UnityEngine;
@@ -7,22 +6,22 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
 {
     public abstract class AbstractVolumetricLightsController<T> : MonoBehaviour, IVolumetricLightsController where T : Component
     {
-        protected T component = null;
+        protected T component;
 
-        protected VFXVolumetricLight[] volumetricLights = null;
+        protected VFXVolumetricLight[] volumetricLights;
         public virtual VFXVolumetricLight[] VolumetricLights
         {
             get
             {
                 if (volumetricLights == null)
                 {
-                    volumetricLights = Array.Empty<VFXVolumetricLight>();
+                    volumetricLights = [];
                 }
                 return volumetricLights;
             }
         }
 
-        protected float intensityOffset = 0f;
+        protected float intensityOffset;
         public float IntensityOffset
         {
             get => intensityOffset;
@@ -52,7 +51,6 @@ namespace BetterLights.MonoBehaviours.VolumetricLights
             if (component == null)
             {
                 Destroy(this);
-                return;
             }
         }
 

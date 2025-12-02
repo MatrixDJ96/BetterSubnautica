@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace BetterSubnautica.MonoBehaviours.Debug
 {
-    public abstract partial class AbstractDebuggerController<T> : MonoBehaviour where T : Component
+    public abstract class AbstractDebuggerController<T> : MonoBehaviour where T : Component
     {
-        private bool lastEnabled = false;
+        private bool lastEnabled;
         public abstract bool ShowDebugInfo { get; }
 
         private T component;
@@ -27,7 +27,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
         protected abstract LightsType LightsType { get; }
         protected abstract bool LightsActive { get; }
 
-        private float energyPerSecond = 0f;
+        private float energyPerSecond;
         protected virtual float EnergyPerSecond
         {
             get
@@ -41,13 +41,13 @@ namespace BetterSubnautica.MonoBehaviours.Debug
             set => energyPerSecond = value;
         }
 
-        protected virtual float LastCapacity { get; set; } = 0f;
+        protected virtual float LastCapacity { get; set; }
         protected abstract float Capacity { get; }
 
-        protected virtual float LastCharge { get; set; } = 0f;
+        protected virtual float LastCharge { get; set; }
         protected abstract float Charge { get; }
 
-        protected virtual float LastUpdate { get; set; } = 0f;
+        protected virtual float LastUpdate { get; set; }
 
         protected virtual float PercentCharge => (Charge * 100) / Capacity;
 

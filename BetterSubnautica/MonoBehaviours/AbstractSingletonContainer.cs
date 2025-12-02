@@ -7,7 +7,7 @@ namespace BetterSubnautica.MonoBehaviours
     {
         public virtual IDictionary<Key, Value> Dict { get; } = new Dictionary<Key, Value>();
 
-        private float lastUpdate = 0f;
+        private float lastUpdate;
         protected float updateInterval = 60f;
 
         protected virtual void Update()

@@ -12,7 +12,7 @@ namespace BetterHUD
         [Slider("Time Font Size", 0, 100)]
         public int TimeFontSize { get; set; } = 32;
 
-        [Choice("Time Font Style", new[] { "Normal", "Bold", "Italic", "Bold & Italic" })]
+        [Choice("Time Font Style", "Normal", "Bold", "Italic", "Bold & Italic")]
         public int TimeFontStyle { get; set; } = 0;
 
         [Slider("Time Position X", 0, 512)]

@@ -1,9 +1,9 @@
-using BetterSubnautica.Utility;
-using HarmonyLib;
-using Nautilus.Options.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using BetterSubnautica.Utility;
+using HarmonyLib;
+using Nautilus.Options.Attributes;
 using UnityEngine;
 
 namespace BetterQuickSlots.Utility
@@ -20,6 +20,8 @@ namespace BetterQuickSlots.Utility
         public static KeyCode Slot8 => Core.Settings.Slot8;
         public static KeyCode Slot9 => Core.Settings.Slot9;
         public static KeyCode Slot10 => Core.Settings.Slot10;
+
+        public static readonly string[] SlotNames = CreateSlotNames();
 
         private static string[] CreateSlotNames()
         {
@@ -43,8 +45,6 @@ namespace BetterQuickSlots.Utility
 
             return QuickSlots.slotNames;
         }
-
-        public static string[] SlotNames = CreateSlotNames();
 
         public static string GetInputSlotName(int slot, bool withColor = true)
         {

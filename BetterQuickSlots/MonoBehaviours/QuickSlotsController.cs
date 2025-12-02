@@ -1,6 +1,7 @@
 using BetterQuickSlots.Utility;
-using UnityEngine;
 using BetterSubnautica.MonoBehaviours;
+using UnityEngine;
+
 #if SUBNAUTICA_STABLE
 using Text = UnityEngine.UI.Text;
 #else
@@ -12,7 +13,7 @@ namespace BetterQuickSlots.MonoBehaviours
 {
     public class QuickSlotsController : AbstractAwakeSingleton<QuickSlotsController>
     {
-        private uGUI_QuickSlots component = null;
+        private uGUI_QuickSlots component;
         public uGUI_QuickSlots Component
         {
             get
@@ -33,6 +34,7 @@ namespace BetterQuickSlots.MonoBehaviours
 
         protected void Update()
         {
+            /*
             if (Component != null && Target != null)
             {
                 var slotCount = Core.Settings.SlotCount;
@@ -59,11 +61,7 @@ namespace BetterQuickSlots.MonoBehaviours
 
                     if (Icons != null && Icons.Length == slotCount)
                     {
-#if SUBNAUTICA_STABLE
-                        var defaultText = HandReticle.main.interactPrimaryText;
-#else
                         var defaultText = HandReticle.main.compTextHand;
-#endif
 
                         var labels = new Text[slotCount];
 
@@ -111,6 +109,7 @@ namespace BetterQuickSlots.MonoBehaviours
             {
                 ForceUpdate = true;
             }
+            */
         }
     }
 }

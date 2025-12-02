@@ -91,7 +91,7 @@ namespace BetterSubnautica.MonoBehaviours
 
         public void AddMessage(string text, string key = null, bool prefix = true)
         {
-            AddMessage(new Message() { Text = text, Prefix = prefix }, key);
+            AddMessage(new Message { Text = text, Prefix = prefix }, key);
         }
 
         public void RemoveMessage(string key)

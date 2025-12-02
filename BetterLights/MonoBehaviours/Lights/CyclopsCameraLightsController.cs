@@ -1,6 +1,4 @@
 ﻿#if SUBNAUTICA
-using UnityEngine;
-
 namespace BetterLights.MonoBehaviours.Lights
 {
     public class CyclopsCameraLightsController : AbstractLightsController<CyclopsExternalCams>
@@ -11,7 +9,7 @@ namespace BetterLights.MonoBehaviours.Lights
 
             if (component != null)
             {
-                lights = new Light[] { component.cameraLight };
+                lights = [component.cameraLight];
             }
         }
 

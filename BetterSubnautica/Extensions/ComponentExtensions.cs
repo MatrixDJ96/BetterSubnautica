@@ -77,17 +77,17 @@ namespace BetterSubnautica.Extensions
         {
             if (__instance.GetPowerRelay() is { } powerRelay)
             {
-                return new PowerRelaySource() { Component = powerRelay };
+                return new PowerRelaySource { Component = powerRelay };
             }
 
             if (__instance.GetEnergyInterface() is { } energyInterface)
             {
-                return new EnergyInterfaceSource() { Component = energyInterface };
+                return new EnergyInterfaceSource { Component = energyInterface };
             }
 
             if (__instance.GetEnergyMixin() is { } energyMixin)
             {
-                return new EnergyMixinSource() { Component = energyMixin };
+                return new EnergyMixinSource { Component = energyMixin };
             }
 
             return null;

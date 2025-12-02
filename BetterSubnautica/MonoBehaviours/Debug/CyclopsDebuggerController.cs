@@ -34,7 +34,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
             }
         }
 
-        private PowerRelay powerRelay = null;
+        private PowerRelay powerRelay;
         private PowerRelay PowerRelay
         {
             get

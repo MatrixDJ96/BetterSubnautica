@@ -5,16 +5,16 @@ namespace BetterLights.MonoBehaviours.Lights
 {
     public abstract class AbstractLightsController<T> : MonoBehaviour, ILightsController where T : Component
     {
-        protected T component = null;
+        protected T component;
 
-        protected float lastColorUpdate = 0f;
-        protected float lastIntensityUpdate = 0f;
-        protected float lastRangeUpdate = 0f;
+        protected float lastColorUpdate;
+        protected float lastIntensityUpdate;
+        protected float lastRangeUpdate;
 
-        protected float[] startIntensities = null;
-        protected float[] startRanges = null;
+        protected float[] startIntensities;
+        protected float[] startRanges;
 
-        protected Light[] lights = null;
+        protected Light[] lights;
         public virtual Light[] Lights => lights;
 
         protected Color color = Color.white;
@@ -31,7 +31,7 @@ namespace BetterLights.MonoBehaviours.Lights
             }
         }
 
-        protected float intensityOffset = 0f;
+        protected float intensityOffset;
         public float IntensityOffset
         {
             get => intensityOffset;
@@ -45,7 +45,7 @@ namespace BetterLights.MonoBehaviours.Lights
             }
         }
 
-        protected float rangeOffset = 0f;
+        protected float rangeOffset;
         public float RangeOffset
         {
             get => rangeOffset;

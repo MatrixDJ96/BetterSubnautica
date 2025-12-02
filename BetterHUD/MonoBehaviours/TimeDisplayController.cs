@@ -7,6 +7,7 @@ namespace BetterHUD.MonoBehaviours
     public class TimeDisplayController : MonoBehaviour
     {
         private GUIStyle style;
+
         public GUIStyle Style
         {
             get
@@ -15,28 +16,33 @@ namespace BetterHUD.MonoBehaviours
                 {
                     style.fontSize = Core.Settings.TimeFontSize;
                 }
+
                 if (style.fontStyle != (FontStyle)Core.Settings.TimeFontStyle)
                 {
                     style.fontStyle = (FontStyle)Core.Settings.TimeFontStyle;
                 }
+
                 return style;
             }
             private set => style = value;
         }
 
         private Rect position;
+
         public Rect Position
         {
             get
             {
-                if (position.x != Core.Settings.TimePositionX)
+                if (!Mathf.Approximately(position.x, Core.Settings.TimePositionX))
                 {
                     position.x = Core.Settings.TimePositionX;
                 }
-                if (position.y != Core.Settings.TimePositionY)
+
+                if (!Mathf.Approximately(position.y, Core.Settings.TimePositionY))
                 {
                     position.y = Core.Settings.TimePositionY;
                 }
+
                 return position;
             }
             private set => position = value;
@@ -54,7 +60,7 @@ namespace BetterHUD.MonoBehaviours
             }
         }
 
-        private bool started = false;
+        public bool Started { get; private set; } = false;
 
         protected void Start()
         {
@@ -63,6 +69,7 @@ namespace BetterHUD.MonoBehaviours
 
         protected IEnumerator AsyncStart()
         {
+            /*
             while (
                 LightmappedPrefabs.main == null || LightmappedPrefabs.main.IsWaitingOnLoads() ||
                 PAXTerrainController.main == null || PAXTerrainController.main.isWorking ||
@@ -84,12 +91,15 @@ namespace BetterHUD.MonoBehaviours
 
             Position = new Rect(Core.Settings.TimePositionX, Core.Settings.TimePositionY, 0, 0);
 
-            started = true;
+            Started = true;
+            */
+
+            yield return null;
         }
 
         public void OnGUI()
         {
-            if (Core.Settings.ShowHUDClock && started)
+            if (Core.Settings.ShowHUDClock && Started)
             {
                 GUI.Label(Position, Text, Style);
             }

@@ -8,8 +8,8 @@ namespace BetterLights.MonoBehaviours.ToggleLights
         protected override bool MandatoryLightsParent => false;
         protected override bool MandatoryToggleLights => false;
 
-        private CyclopsLightingPanel lightingPanel = null;
-        private CyclopsExternalCams externalCams = null;
+        private CyclopsLightingPanel lightingPanel;
+        private CyclopsExternalCams externalCams;
 
         protected override bool KeyDown => false;
 
@@ -66,7 +66,6 @@ namespace BetterLights.MonoBehaviours.ToggleLights
                 if (!component.isCyclops || lightingPanel == null || externalCams == null)
                 {
                     Destroy(this);
-                    return;
                 }
             }
         }

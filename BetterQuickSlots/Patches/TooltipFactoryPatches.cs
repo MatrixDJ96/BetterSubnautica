@@ -1,9 +1,9 @@
-﻿using BetterQuickSlots.Utility;
-using BetterSubnautica.Utility;
-using HarmonyLib;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BetterQuickSlots.Utility;
+using BetterSubnautica.Utility;
+using HarmonyLib;
 
 namespace BetterSubnautica.Patches
 {

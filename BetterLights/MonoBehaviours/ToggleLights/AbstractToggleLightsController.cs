@@ -14,17 +14,17 @@ namespace BetterLights.MonoBehaviours.ToggleLights
         protected abstract bool KeyDown { get; }
         protected abstract float EnergyConsumption { get; }
 
-        protected T component = null;
-        protected global::ToggleLights toggleLights = null;
-        protected GameObject lightsParent = null;
-        protected IEnergySource energySource = null;
+        protected T component;
+        protected global::ToggleLights toggleLights;
+        protected GameObject lightsParent;
+        protected IEnergySource energySource;
 
-        protected FMOD_StudioEventEmitter lightsOnSound = null;
-        protected FMOD_StudioEventEmitter lightsOffSound = null;
-        protected FMODAsset onSound = null;
-        protected FMODAsset offSound = null;
+        protected FMOD_StudioEventEmitter lightsOnSound;
+        protected FMOD_StudioEventEmitter lightsOffSound;
+        protected FMODAsset onSound;
+        protected FMODAsset offSound;
 
-        protected bool lightsActive = false;
+        protected bool lightsActive;
         public virtual bool LightsActive => lightsActive;
 
         protected virtual void Awake()

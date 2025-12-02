@@ -1,10 +1,7 @@
-﻿using System;
+using System;
 
 namespace BetterSubnautica.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class PostPatchAttribute : Attribute
-    {
-        public PostPatchAttribute() { }
-    }
+    public class PostPatchAttribute : Attribute { }
 }

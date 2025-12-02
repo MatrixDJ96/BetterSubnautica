@@ -6,7 +6,7 @@ namespace BetterLights.MonoBehaviours.Lights
 {
     public class CyclopsLightsController : AbstractLightsController<SubRoot>
     {
-        private CyclopsLightingPanel additionalComponent = null;
+        private CyclopsLightingPanel additionalComponent;
 
         protected override void Awake()
         {

@@ -1,6 +1,6 @@
-﻿using BetterQuickSlots.Utility;
+﻿using System.Collections.Generic;
+using BetterQuickSlots.Utility;
 using HarmonyLib;
-using System.Collections.Generic;
 
 namespace BetterQuickSlots.Patches
 {

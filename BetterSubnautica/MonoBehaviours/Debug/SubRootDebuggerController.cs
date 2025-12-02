@@ -7,7 +7,7 @@ namespace BetterSubnautica.MonoBehaviours.Debug
     {
         public override bool ShowDebugInfo => Core.Settings.SubRootInfo;
 
-        private PowerRelay powerRelay = null;
+        private PowerRelay powerRelay;
         private PowerRelay PowerRelay
         {
             get

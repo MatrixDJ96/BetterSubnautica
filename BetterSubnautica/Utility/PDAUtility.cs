@@ -5,7 +5,7 @@ namespace BetterSubnautica.Utility
 {
     public static class PDAUtility
     {
-        public static bool InPause { get; private set; } = false;
+        public static bool InPause { get; private set; }
 
         private static void FreezeBegin(PDA __instance, bool bypassInPause)
         {
