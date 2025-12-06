@@ -21,12 +21,12 @@ namespace BetterLights.Patches
 
                 if (__instance.gameObject.GetComponent<CyclopsToggleLightsController>() == null)
                 {
-                    __instance.gameObject.AddComponent<CyclopsToggleLightsController>();
+                    // __instance.gameObject.AddComponent<CyclopsToggleLightsController>();
                 }
 
                 if (__instance.gameObject.GetComponent<CyclopsVolumetricLightsController>() == null)
                 {
-                    __instance.gameObject.AddComponent<CyclopsVolumetricLightsController>();
+                    // __instance.gameObject.AddComponent<CyclopsVolumetricLightsController>();
                 }
             }
         }

@@ -4,7 +4,7 @@ using BetterSubnautica.Extensions;
 
 namespace BetterSubnautica.MonoBehaviours.Debug
 {
-    public class CyclopsDebuggerController : AbstractDebuggerController<SubRoot>
+    public class CyclopsDebuggerController : SubRootDebuggerController
     {
         public override bool ShowDebugInfo => Core.Settings.CyclopsInfo;
 
@@ -34,18 +34,6 @@ namespace BetterSubnautica.MonoBehaviours.Debug
             }
         }
 
-        private PowerRelay powerRelay = null;
-        private PowerRelay PowerRelay
-        {
-            get
-            {
-                if (powerRelay == null && Component != null)
-                {
-                    powerRelay = Component.GetPowerRelay();
-                }
-                return powerRelay;
-            }
-        }
 
         protected override LightsType LightsType
         {
@@ -85,32 +73,6 @@ namespace BetterSubnautica.MonoBehaviours.Debug
                     lightsActive |= ExternalCams.GetActive() && ExternalCams.GetLightState() > 0;
                 }
                 return lightsActive;
-            }
-        }
-
-        protected override float Capacity
-        {
-            get
-            {
-                var capacity = 0f;
-                if (PowerRelay != null)
-                {
-                    capacity = PowerRelay.GetMaxPower();
-                }
-                return capacity;
-            }
-        }
-
-        protected override float Charge
-        {
-            get
-            {
-                var charge = 0f;
-                if (PowerRelay != null)
-                {
-                    charge = PowerRelay.GetPower();
-                }
-                return charge;
             }
         }
     }

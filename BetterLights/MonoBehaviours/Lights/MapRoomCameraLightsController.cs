@@ -1,9 +1,13 @@
-﻿namespace BetterLights.MonoBehaviours.Lights
+﻿using BetterSubnautica.Extensions;
+using UnityEngine;
+
+namespace BetterLights.MonoBehaviours.Lights
 {
     public class MapRoomCameraLightsController : AbstractLightsController<MapRoomCamera>
     {
-        protected override void UpdateSettings()
+        protected override void GetSettings()
         {
+            Color = Core.MapRoomCameraSettings.LightsColor;
             IntensityOffset = Core.MapRoomCameraSettings.LightsIntensityOffset;
             RangeOffset = Core.MapRoomCameraSettings.LightsRangeOffset;
         }

@@ -1,4 +1,5 @@
 ﻿#if BELOWZERO
+using System.Linq;
 using BetterSubnautica.Enums;
 using BetterSubnautica.Extensions;
 using UnityEngine;
@@ -16,16 +17,12 @@ namespace BetterSubnautica.MonoBehaviours.Debug
             {
                 if (lightsParent == null && Component != null)
                 {
-                    var toggleLights = Component.GetToggleLights();
-
-                    if (toggleLights != null)
-                    {
-                        lightsParent = toggleLights.lightsParent;
-                    }
+                    lightsParent = Component.GetLightsParent();
                 }
                 return lightsParent;
             }
         }
+
 
         private EnergyInterface energyInterface;
         private EnergyInterface EnergyInterface
@@ -42,56 +39,11 @@ namespace BetterSubnautica.MonoBehaviours.Debug
 
         protected override LightsType LightsType => LightsActive ? LightsType.External : LightsType.None;
 
-        protected override bool LightsActive
-        {
-            get
-            {
-                var lightsActive = false;
-                if (LightsParent != null)
-                {
-                    lightsActive = LightsParent.activeInHierarchy;
-                }
-                return lightsActive;
-            }
-        }
+        protected override bool LightsActive => LightsParent != null && LightsParent.activeInHierarchy;
 
-        protected override float Capacity
-        {
-            get
-            {
-                var capacity = 0f;
-                if (EnergyInterface != null)
-                {
-                    for (int i = 0; i < EnergyInterface.sources.Length; i++)
-                    {
-                        if (EnergyInterface.sources[i] != null)
-                        {
-                            capacity += EnergyInterface.sources[i].capacity;
-                        }
-                    }
-                }
-                return capacity;
-            }
-        }
+        protected override float Capacity => EnergyInterface == null ? 0 : EnergyInterface.sources.Where(t => t != null).Sum(t => t.capacity);
 
-        protected override float Charge
-        {
-            get
-            {
-                var charge = 0f;
-                if (EnergyInterface != null)
-                {
-                    for (int i = 0; i < EnergyInterface.sources.Length; i++)
-                    {
-                        if (EnergyInterface.sources[i] != null)
-                        {
-                            charge += EnergyInterface.sources[i].charge;
-                        }
-                    }
-                }
-                return charge;
-            }
-        }
+        protected override float Charge => EnergyInterface == null ? 0 : EnergyInterface.sources.Where(t => t != null).Sum(t => t.charge);
     }
 }
 #endif

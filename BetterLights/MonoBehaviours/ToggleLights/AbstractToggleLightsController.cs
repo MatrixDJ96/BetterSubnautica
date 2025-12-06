@@ -99,7 +99,7 @@ namespace BetterLights.MonoBehaviours.ToggleLights
         {
             if (component != null)
             {
-                lightsParent = component.GetLightsParent();
+                // lightsParent = component.GetLightsParent();
 
                 if (lightsParent == null && toggleLights != null)
                 {

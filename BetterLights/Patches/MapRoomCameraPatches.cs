@@ -32,7 +32,11 @@ namespace BetterLights.Patches
     [HarmonyPatch(nameof(MapRoomCamera.ControlCamera))]
     class MapRoomCameraControlCameraPatch
     {
+#if BELOWZERO
         static void Postfix(MapRoomCamera __instance, Player player, MapRoomScreen screen)
+#else
+        static void Postfix(MapRoomCamera __instance, MapRoomScreen screen)
+#endif
         {
             if (__instance.gameObject.GetComponent<IToggleLightsController>() is { } toggleLightsController)
             {
@@ -57,7 +61,7 @@ namespace BetterLights.Patches
         {
             if (__instance.gameObject.GetComponent<IToggleLightsController>() is { } toggleLightsController)
             {
-                toggleLightsController.SetLightsActive(__instance.dockingPoint == null ? toggleLightsController.LightsActive : false);
+                toggleLightsController.SetLightsActive(__instance.dockingPoint == null && toggleLightsController.LightsActive);
             }
 
             if (__instance.gameObject.GetComponent<IVolumetricLightsController>() is { } volumetricLightsController)

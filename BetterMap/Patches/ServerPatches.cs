@@ -13,6 +13,8 @@ namespace BetterMap.Patches
         {
             if (SaveController.Instance != null)
             {
+                Core.Logger.LogInfo("Server is disposing, performing save...");
+
                 SaveController.Instance.PerformSave();
             }
         }

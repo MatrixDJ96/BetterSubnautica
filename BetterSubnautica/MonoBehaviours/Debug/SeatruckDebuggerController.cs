@@ -9,33 +9,20 @@ namespace BetterSubnautica.MonoBehaviours.Debug
     {
         public override bool ShowDebugInfo => Core.Settings.SeatruckInfo;
 
-        private SeaTruckLights seaTruckLights = null;
-        private SeaTruckLights SeaTruckLights
-        {
-            get
-            {
-                if (seaTruckLights == null && Component != null)
-                {
-                    seaTruckLights = Component.gameObject.GetComponent<SeaTruckLights>();
-                }
-                return seaTruckLights;
-            }
-        }
-
         private GameObject lightsParent;
         private GameObject LightsParent
         {
             get
             {
-                if (lightsParent == null && SeaTruckLights != null)
+                if (lightsParent == null && Component != null)
                 {
-                    lightsParent = SeaTruckLights.floodLight;
+                    lightsParent = Component.GetLightsParent();
                 }
                 return lightsParent;
             }
         }
 
-        private PowerRelay powerRelay = null;
+        private PowerRelay powerRelay;
         private PowerRelay PowerRelay
         {
             get
@@ -50,55 +37,11 @@ namespace BetterSubnautica.MonoBehaviours.Debug
 
         protected override LightsType LightsType => LightsActive ? LightsType.External : LightsType.None;
 
-        protected override bool LightsActive
-        {
-            get
-            {
-                var lightsActive = false;
-                if (LightsParent != null)
-                {
-                    lightsActive = LightsParent.activeInHierarchy;
-                }
-                return lightsActive;
-            }
-        }
+        protected override bool LightsActive => LightsParent != null && LightsParent.activeInHierarchy;
 
-        protected override float Capacity
-        {
-            get
-            {
-                var capacity = 0f;
-                if (PowerRelay != null)
-                {
-                    capacity = PowerRelay.GetMaxPower();
-                }
-                return capacity;
-            }
-        }
+        protected override float Capacity => PowerRelay != null ? PowerRelay.GetMaxPower() : 0f;
 
-        protected override float Charge
-        {
-            get
-            {
-                var charge = 0f;
-                if (PowerRelay != null)
-                {
-                    charge = PowerRelay.GetPower();
-                }
-                return charge;
-            }
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            if (Component != null && !Component.IsMainSegment())
-            {
-                Destroy(this);
-                return;
-            }
-        }
+        protected override float Charge => PowerRelay != null ? PowerRelay.GetPower() : 0f;
     }
 }
 #endif

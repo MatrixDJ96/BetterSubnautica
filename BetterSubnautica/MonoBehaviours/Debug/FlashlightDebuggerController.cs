@@ -36,43 +36,10 @@ namespace BetterSubnautica.MonoBehaviours.Debug
 
         protected override LightsType LightsType => LightsActive ? LightsType.External : LightsType.None;
 
-        protected override bool LightsActive
-        {
-            get
-            {
-                var lightsActive = false;
-                if (LightsParent != null)
-                {
-                    lightsActive = LightsParent.activeInHierarchy;
-                }
-                return lightsActive;
-            }
-        }
+        protected override bool LightsActive => LightsParent != null && LightsParent.activeInHierarchy;
 
-        protected override float Capacity
-        {
-            get
-            {
-                var capacity = 0f;
-                if (EnergyMixin != null)
-                {
-                    capacity += EnergyMixin.capacity;
-                }
-                return capacity;
-            }
-        }
+        protected override float Capacity => EnergyMixin != null ? EnergyMixin.capacity : 0;
 
-        protected override float Charge
-        {
-            get
-            {
-                var charge = 0f;
-                if (EnergyMixin != null)
-                {
-                    charge += EnergyMixin.charge;
-                }
-                return charge;
-            }
-        }
+        protected override float Charge => EnergyMixin != null ? EnergyMixin.charge : 0;
     }
 }

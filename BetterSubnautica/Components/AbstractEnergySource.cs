@@ -4,11 +4,11 @@ namespace BetterSubnautica.Components
 {
     public abstract class AbstractEnergySource<T> : IEnergySource where T : Component
     {
-        protected T component = null;
+        private T component;
+
         public T Component
         {
             get => component;
-
             set
             {
                 if (component == null)

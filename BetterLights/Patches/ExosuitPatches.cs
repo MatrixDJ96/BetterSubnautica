@@ -28,8 +28,14 @@ namespace BetterLights.Patches
         }
     }
 
+#if BELOWZERO
     [HarmonyPatch(typeof(Exosuit))]
     [HarmonyPatch(nameof(Exosuit.SubConstructionComplete))]
+#else
+    [HarmonyPatch(typeof(Vehicle))]
+    [HarmonyPatch(nameof(Vehicle.SubConstructionComplete))]
+#endif
+
     class ExosuitSubConstructionCompletePatch
     {
         static void Postfix(Vehicle __instance)
