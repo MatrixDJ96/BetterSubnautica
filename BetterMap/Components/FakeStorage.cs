@@ -1,5 +1,4 @@
-﻿#if BELOWZERO_MULTI
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BetterMap.Components
 {
@@ -43,4 +42,3 @@ namespace BetterMap.Components
         public UserStorageUtils.SaveOperation CopyFilesToContainerAsync(string containerName, string srcPath, List<string> updatedFiles, List<string> deletedFiles, List<string> unchangedFiles) => FakeSaveOperation;
     }
 }
-#endif

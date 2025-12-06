@@ -1,10 +1,12 @@
-﻿#if BELOWZERO_MULTI
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 using BetterMap.Components;
 using BetterSubnautica.MonoBehaviours;
-using Subnautica.API.Features;
 using SubnauticaMap;
+
+#if BELOWZERO_MULTI
+using Subnautica.API.Features;
+#endif
 
 namespace BetterMap.MonoBehaviours;
 
@@ -15,8 +17,6 @@ public class SaveController : AbstractAwakeSingleton<SaveController>
     public StopwatchItem Timing { get; } = new(10000f, autoStart: false);
 
     public Controller Controller { get; private set; }
-
-    public string ServerId { get; private set; }
 
     public string SavePath { get; private set; }
     public string MapPath { get; private set; }
@@ -33,16 +33,25 @@ public class SaveController : AbstractAwakeSingleton<SaveController>
         IsLoaded = false;
 
         Controller = gameObject.GetComponent<Controller>();
-        ServerId = Network.Session?.Current?.ServerId;
+        
+#if BELOWZERO_MULTI
+        var serverId = Network.Session.Current?.ServerId;
+#else
+        // TODO: Implementare per Subnautica
+#endif
 
-        if (Controller == null || string.IsNullOrWhiteSpace(ServerId))
+        if (Controller == null || string.IsNullOrWhiteSpace(serverId))
         {
             Destroy(this);
             return;
         }
 
+#if BELOWZERO_MULTI
         SavePath = Paths.GetMultiplayerClientSavePath();
-        MapPath = Path.Combine(ServerId, "SubnauticaMap");
+        MapPath = Path.Combine(serverId, "SubnauticaMap");
+#else
+        // TODO: Implementare per Subnautica
+#endif
 
         RealUserStorage = new UserStoragePC(SavePath);
         RealUserStorage.CreateContainerAsync(MapPath);
@@ -80,6 +89,8 @@ public class SaveController : AbstractAwakeSingleton<SaveController>
     {
         if (!force && !IsStarted) return;
 
+        Logger.Print("Loading map...");
+
         lock (ProcessLock)
         {
             IsStarted = true;
@@ -87,13 +98,16 @@ public class SaveController : AbstractAwakeSingleton<SaveController>
             Map.All().Clear();
             Fogmap.Release();
             Fogmap.All().Clear();
-            
+
             Controller.LoadMapIcons();
             Controller.LoadNotes();
             Controller.ReloadMaps();
 
             IsLoaded = true;
+            Timing.Restart();
         }
+
+        Logger.Print("Map loaded!");
     }
 
     public void PerformLoad()
@@ -105,6 +119,8 @@ public class SaveController : AbstractAwakeSingleton<SaveController>
     {
         if (!IsLoaded) return;
 
+        Logger.Print("Saving map...");
+
         lock (ProcessLock)
         {
             Fogmap.SaveAll();
@@ -113,6 +129,7 @@ public class SaveController : AbstractAwakeSingleton<SaveController>
 
             Timing.Restart();
         }
+
+        Logger.Print("Map saved!");
     }
 }
-#endif

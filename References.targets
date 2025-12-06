@@ -23,7 +23,7 @@
 
     <ItemGroup Condition="'$(IsBelowZero)' == 'true' And '$(IsMultiplayer)' == 'true'">
         <NitroxDll Include="$(NitroxDir)\Subnautica.*.dll"/>
-        <NitroxDll Include="$(NitroxDir)\Dependencies\Subnautica.*.dll"/>
+        <NitroxDll Include="$(NitroxDir)\Dependencies\*.dll"/>
         <NitroxDll Include="$(NitroxDir)\Plugins\Subnautica.*.dll"/>
         <Reference Include="@(NitroxDll)"/>
     </ItemGroup>
